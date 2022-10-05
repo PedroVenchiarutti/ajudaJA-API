@@ -1,0 +1,42 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "AjudaJA API",
+    "version": "1.0.0",
+    "description": "API do projeto AjudaJA",
+    "contact": {
+      "name": "Pedro Lucas",
+      "email": "pedro.lucas.clear@gmail.com"
+    }
+  },
+  "host": "localhost:3333/api",
+  "basePath": "/",
+  "schemes": [
+    "http"
+  ],
+  "paths": {
+    "/api/public/": {
+      "get": {
+        "description": "",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/public/add": {
+      "get": {
+        "description": "",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    }
+  },
+  "securytiDefinitions": {}
+}
