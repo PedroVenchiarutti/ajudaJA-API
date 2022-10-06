@@ -35,3 +35,15 @@ exports.exec = async (query) => {
   await client.end();
   return result;
 };
+
+exports.query = async (query, params) => {
+  const pool = new Pool({
+    connectionString: connectionString,
+    ssl: {
+      rejectUnauthorized: false,
+    },
+  });
+  const result = await pool.query(query, params);
+  await pool.end();
+  return result;
+};

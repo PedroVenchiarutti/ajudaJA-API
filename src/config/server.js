@@ -5,6 +5,7 @@ const bodyParser = require("body-parser");
 const allowCors = require("./cors");
 const routes = require("../routes/index");
 const server = express();
+const apiErrorHandler = require("../error/errorHandler");
 
 // Swagger
 const swaggerUI = require("swagger-ui-express");
@@ -21,6 +22,8 @@ server.use(cors());
 
 //EndPoint
 server.use("/api", routes);
+// Middleware de tratamento de erros
+server.use(apiErrorHandler);
 
 // NAO ENVIAR O SWAGGER NA PRODUCAO
 server.use("/docs", swaggerUI.serve, swaggerUI.setup(swaggerFile));

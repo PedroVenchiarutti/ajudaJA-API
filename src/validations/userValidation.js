@@ -6,7 +6,8 @@ const userSchema = yup.object().shape({
   password: yup.string().required(),
   passwordConfirmation: yup
     .string()
-    .oneOf([yup.ref("password"), null], "Passwords nao conferem"),
+    .oneOf([yup.ref("password"), null], "As senhas nao sao iguais")
+    .required(),
 });
 
 module.exports = userSchema;

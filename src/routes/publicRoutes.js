@@ -1,4 +1,4 @@
-const express = require("express");
+const express = require("express");     
 const users = require("../controller/userController");
 const Routes = express.Router();
 
@@ -9,7 +9,7 @@ const bodyValidation = require("../middlewares/validationMiddleware");
 const userSchema = require("../validations/userValidation");
 
 Routes.post("/login");
-// Routes.post("/register", bodyValidation(userSchema), users.add);
-Routes.post("/register", users.add);
+Routes.post("/register", bodyValidation(userSchema), users.add);
+
 
 module.exports = Routes;
