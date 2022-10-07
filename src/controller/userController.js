@@ -1,13 +1,13 @@
 const db = require("../config/dbconnection");
 const querys = require("../helpers/querys");
 const ApiError = require("../error/apiError");
+
 const crypto = require("../config/bcrypt");
 
 exports.getAll = async (req, res, next) => {
-  const id = 2;
   try {
     querys
-      .select("users", 1)
+      .select("users")
       .then((result) => {
         res.json(result);
       })
@@ -30,11 +30,8 @@ exports.add = async (req, res, next) => {
       password: hash,
     };
 
-    db.quey("insert into users(username,email,password) values(?,?,?)", [
-      username,
-      email,
-      hash,
-    ])
+    querys
+      .insert("users", data)
       .then((result) => {
         res.json(result);
       })

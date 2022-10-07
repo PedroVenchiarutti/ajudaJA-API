@@ -17,37 +17,25 @@ class Querys {
     });
   }
 
-  static insert(table, data) {
-    return new Promise((resolver, reject) => {
+  static insert(table, params) {
+    return new Promise((resolve, reject) => {
       let query = `INSERT INTO ${table} (`;
-      let params = [];
 
-      const keys = Object.keys(data);
-      const values = Object.values(data);
+      let keys = Object.keys(params);
+      let values = Object.values(params);
 
-      keys.forEach((key, index) => {
-        query += `${key}`;
-        params.push(values[index]);
-
-        if (index < keys.length - 1) {
-          query += ", ";
-        }
-      });
-
-      query += ") VALUES (";
+      let paramKeys = [];
+      let paramValues = [];
 
       keys.forEach((key, index) => {
-        query += `?`;
-        if (index < keys.length - 1) {
-          query += ", ";
-        }
+        paramKeys.push(key);
+        paramValues.push(`$${index + 1}`);
       });
 
-      query += ")";
+      query += `${paramKeys.join(", ")}) VALUES (${paramValues.join(", ")})`;
 
-      console.log(query);
-      db.exec(query, params)
-        .then((result) => resolver(result))
+      db.query(query, values)
+        .then((result) => resolve(result.rows))
         .catch((err) => reject(err));
     });
   }

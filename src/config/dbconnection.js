@@ -23,6 +23,7 @@ exports.newClient = () => {
   return client;
 };
 
+
 exports.exec = async (query) => {
   const client = new Client({
     connectionString: connectionString,
@@ -36,6 +37,7 @@ exports.exec = async (query) => {
   return result;
 };
 
+// FUncionando a querys de insert
 exports.query = async (query, params) => {
   const pool = new Pool({
     connectionString: connectionString,
