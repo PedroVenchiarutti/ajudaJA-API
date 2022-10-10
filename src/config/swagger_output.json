@@ -9,13 +9,13 @@
       "email": "pedro.lucas.clear@gmail.com"
     }
   },
-  "host": "localhost:3333/api",
+  "host": "localhost:3333",
   "basePath": "/",
   "schemes": [
     "http"
   ],
   "paths": {
-    "/api/public/register": {
+    "/api/public/login": {
       "post": {
         "tags": [
           "public"
@@ -28,9 +28,6 @@
             "schema": {
               "type": "object",
               "properties": {
-                "username": {
-                  "example": "any"
-                },
                 "email": {
                   "example": "any"
                 },
@@ -38,6 +35,54 @@
                   "example": "any"
                 }
               }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/public/register": {
+      "post": {
+        "tags": [
+          "public"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "obj",
+            "in": "body",
+            "description": "Informações do usuario",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "username": {
+                  "type": "string",
+                  "example": "Pedro"
+                },
+                "email": {
+                  "type": "string",
+                  "example": "teste@teste.com"
+                },
+                "password": {
+                  "type": "string",
+                  "example": "123456"
+                },
+                "passwordConfirmation": {
+                  "type": "string",
+                  "example": "123456"
+                }
+              },
+              "required": [
+                "username",
+                "email",
+                "password",
+                "passwordConfirmation"
+              ]
             }
           }
         ],

@@ -4,14 +4,21 @@ const querys = require("../helpers/querys");
 const loginRepository = require("../repositories/loginRepositories");
 const apiError = require("../error/apiError");
 
+// Criando uma funcao de login que recebe o email e a senha pelo body da requisicao
 exports.login = (req, res, next) => {
+  /*
+      #swagger.tags = ['public']
+  */
+
   const { email, password } = req.body;
 
+  // Utilizando a funcao de login criada no repositories
   loginRepository(email, password)
     .then((user) => {
-      console.log(user);
-
-      res.json(user);
+      res.json({
+        message: "Login realizado com sucesso",
+        data: user,
+      });
     })
     .catch((error) => {
       next(apiError.badRequest(error.message));

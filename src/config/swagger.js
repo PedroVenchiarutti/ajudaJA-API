@@ -13,7 +13,7 @@ const doc = {
       email: "pedro.lucas.clear@gmail.com",
     },
   },
-  host: "localhost:3333/api",
+  host: "localhost:3333",
   schemes: ["http"],
   securytiDefinitions: {},
 };
