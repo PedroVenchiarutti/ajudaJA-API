@@ -4,18 +4,6 @@ const { Client, Pool } = require("pg");
 // Criando uma constante com A URL do banco de dados
 const connectionString = process.env.DB_URL;
 
-// Criando uma instancia do banco de dados
-
-// exports.newClient = () => {
-//   const client = new Client({
-//     connectionString: connectionString,
-//     ssl: {
-//       rejectUnauthorized: false,
-//     },
-//   });
-//   return client;
-// };
-
 // Funcao que recebe query e executa a query no banco de dados
 exports.exec = async (query) => {
   const client = new Client({

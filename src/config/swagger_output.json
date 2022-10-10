@@ -9,17 +9,14 @@
       "email": "pedro.lucas.clear@gmail.com"
     }
   },
-  "host": "localhost:3333",
-  "basePath": "/",
-  "schemes": [
-    "http"
-  ],
+  "host": "ajudajaapi.herokuapp.com",
+  "basePath": "/api",
+  "schemes": ["https"],
+  "consumes": ["application/json"],
   "paths": {
-    "/api/public/login": {
+    "/public/login": {
       "post": {
-        "tags": [
-          "public"
-        ],
+        "tags": ["public"],
         "description": "",
         "parameters": [
           {
@@ -45,11 +42,9 @@
         }
       }
     },
-    "/api/public/register": {
+    "/public/register": {
       "post": {
-        "tags": [
-          "public"
-        ],
+        "tags": ["public"],
         "description": "",
         "parameters": [
           {
@@ -93,11 +88,9 @@
         }
       }
     },
-    "/api/private/users": {
+    "/private/users": {
       "get": {
-        "tags": [
-          "Private / User"
-        ],
+        "tags": ["Private / User"],
         "description": "",
         "parameters": [],
         "responses": {
@@ -107,11 +100,9 @@
         }
       }
     },
-    "/api/private/users/{id}": {
+    "/private/users/{id}": {
       "get": {
-        "tags": [
-          "Private / User"
-        ],
+        "tags": ["Private / User"],
         "description": "",
         "parameters": [
           {
@@ -128,11 +119,9 @@
         }
       }
     },
-    "/api/private/update/users/{id}": {
+    "/private/update/users/{id}": {
       "put": {
-        "tags": [
-          "Private / User"
-        ],
+        "tags": ["Private / User"],
         "description": "",
         "parameters": [
           {
@@ -164,11 +153,9 @@
         }
       }
     },
-    "/api/private/update/users/password/{id}": {
+    "/private/update/users/password/{id}": {
       "patch": {
-        "tags": [
-          "Private / User"
-        ],
+        "tags": ["Private / User"],
         "description": "",
         "parameters": [
           {
@@ -197,11 +184,9 @@
         }
       }
     },
-    "/api/private/delete/users/{id}": {
+    "/private/delete/users/{id}": {
       "delete": {
-        "tags": [
-          "Private / User"
-        ],
+        "tags": ["Private / User"],
         "description": "",
         "parameters": [
           {

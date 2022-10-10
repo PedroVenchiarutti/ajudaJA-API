@@ -1,7 +1,7 @@
 const swaggerAutogen = require("swagger-autogen")();
 
 const outputFile = "./src/config/swagger_output.json";
-const endpointsFiles = ["./src/config/server.js"];
+const endpointsFiles = ["./src/routes/index.js"];
 
 const doc = {
   info: {
@@ -13,8 +13,9 @@ const doc = {
       email: "pedro.lucas.clear@gmail.com",
     },
   },
-  host: "localhost:3333",
-  schemes: ["http"],
+  host: "ajudajaapi.herokuapp.com/api",
+  schemes: ["https"],
+  consumes: ["application/json"],
   securytiDefinitions: {},
 };
 
