@@ -21,6 +21,16 @@ class Querys {
     });
   }
 
+  static verifyEmail(table, email) {
+    return new Promise((resolve, reject) => {
+      let query = `SELECT * FROM ${table} WHERE email = $1`;
+
+      db.exec(query, [email])
+        .then((result) => resolve(result.rows))
+        .catch((err) => reject(err));
+    });
+  }
+
   // Metodo de insert do BD que retorna a query numa promessa recebendo a tabela e os parametros
   static insert(table, params) {
     return new Promise((resolve, reject) => {
@@ -42,11 +52,15 @@ class Querys {
       });
 
       // Adicionando os parametros na query e separando por virgula
-      query += `${paramKeys.join(", ")}) VALUES (${paramValues.join(", ")})`;
+      query += `${paramKeys.join(", ")}) VALUES (${paramValues.join(
+        ", "
+      )}) RETURNING *`;
 
       // Executando a query no banco de dados e retornando uma promessa
-      db.query(query, values)
-        .then((result) => resolve(result.rows))
+      db.exec(query, values)
+        .then((result) => {
+          resolve(result);
+        })
         .catch((err) => reject(err));
     });
   }
@@ -75,7 +89,7 @@ class Querys {
       query += `${paramKeys.join(", ")} WHERE id = ${id}`;
 
       // Executando a query no banco de dados e retornando uma promessa
-      db.query(query, values)
+      db.exec(query, values)
         .then((result) => resolve(result.rows))
         .catch((err) => reject(err));
     });
@@ -90,7 +104,7 @@ class Querys {
       let values = Object.values(params);
 
       // Executando a query no banco de dados e retornando uma promessa
-      db.query(query, values)
+      db.exec(query, values)
         .then((result) => resolve(result.rows))
         .catch((err) => reject(err));
     });
@@ -102,7 +116,7 @@ class Querys {
       let query = `DELETE FROM ${table} WHERE id = ${id}`;
 
       // Executando a query no banco de dados e retornando uma promessa
-      db.query(query)
+      db.exec(query)
         .then((result) => resolve(result.rows))
         .catch((err) => reject(err));
     });

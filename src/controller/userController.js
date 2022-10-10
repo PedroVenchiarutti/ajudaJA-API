@@ -52,7 +52,13 @@ exports.add = async (req, res, next) => {
               $username: "Pedro", 
               $email: "teste@teste.com",
               $password: "123456",
-              $passwordConfirmation: "123456"
+              $passwordConfirmation: "123456",
+              $birthday: "1990-01-01",
+              $emergencynumber: "11999999999",
+              $helth_insurance: "Nao",
+              $gender: "M",
+              $name: "Pedro",
+              $lastname: "Lucas"
               }
     }
   */
@@ -69,7 +75,38 @@ exports.add = async (req, res, next) => {
     querys
       .insert("users", data)
       .then((result) => {
-        res.json(result);
+        const id = result[0].id;
+        const {
+          birthday,
+          emergencynumber,
+          helth_insurance,
+          gender,
+          name,
+          lastname,
+        } = req.body;
+
+        const data = {
+          user_id: id,
+          birthday,
+          emergencynumber,
+          helth_insurance,
+          gender,
+          name,
+          lastname,
+        };
+        querys.insert("users_informations", data).then((results) => {
+          res.status(200).json({
+            message: "Cliente cadastrado com sucesso! ",
+            data: {
+              user: {
+                ...result[0],
+              },
+              user_informations: {
+                ...results[0],
+              },
+            },
+          });
+        });
       })
       .catch((err) => {
         next(ApiError.internal(err.message));

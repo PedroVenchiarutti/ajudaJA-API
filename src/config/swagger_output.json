@@ -9,14 +9,20 @@
       "email": "pedro.lucas.clear@gmail.com"
     }
   },
-  "host": "ajudajaapi.herokuapp.com",
-  "basePath": "/api",
-  "schemes": ["https"],
-  "consumes": ["application/json"],
+  "host": "ajudajaapi.herokuapp.com/api ",
+  "basePath": "/",
+  "schemes": [
+    "https"
+  ],
+  "consumes": [
+    "application/json"
+  ],
   "paths": {
     "/public/login": {
       "post": {
-        "tags": ["public"],
+        "tags": [
+          "public"
+        ],
         "description": "",
         "parameters": [
           {
@@ -44,7 +50,9 @@
     },
     "/public/register": {
       "post": {
-        "tags": ["public"],
+        "tags": [
+          "public"
+        ],
         "description": "",
         "parameters": [
           {
@@ -70,13 +78,43 @@
                 "passwordConfirmation": {
                   "type": "string",
                   "example": "123456"
+                },
+                "birthday": {
+                  "type": "string",
+                  "example": "1990-01-01"
+                },
+                "emergencynumber": {
+                  "type": "string",
+                  "example": "11999999999"
+                },
+                "helth_insurance": {
+                  "type": "string",
+                  "example": "Nao"
+                },
+                "gender": {
+                  "type": "string",
+                  "example": "M"
+                },
+                "name": {
+                  "type": "string",
+                  "example": "Pedro"
+                },
+                "lastname": {
+                  "type": "string",
+                  "example": "Lucas"
                 }
               },
               "required": [
                 "username",
                 "email",
                 "password",
-                "passwordConfirmation"
+                "passwordConfirmation",
+                "birthday",
+                "emergencynumber",
+                "helth_insurance",
+                "gender",
+                "name",
+                "lastname"
               ]
             }
           }
@@ -90,7 +128,9 @@
     },
     "/private/users": {
       "get": {
-        "tags": ["Private / User"],
+        "tags": [
+          "Private / User"
+        ],
         "description": "",
         "parameters": [],
         "responses": {
@@ -102,7 +142,9 @@
     },
     "/private/users/{id}": {
       "get": {
-        "tags": ["Private / User"],
+        "tags": [
+          "Private / User"
+        ],
         "description": "",
         "parameters": [
           {
@@ -121,7 +163,9 @@
     },
     "/private/update/users/{id}": {
       "put": {
-        "tags": ["Private / User"],
+        "tags": [
+          "Private / User"
+        ],
         "description": "",
         "parameters": [
           {
@@ -155,7 +199,9 @@
     },
     "/private/update/users/password/{id}": {
       "patch": {
-        "tags": ["Private / User"],
+        "tags": [
+          "Private / User"
+        ],
         "description": "",
         "parameters": [
           {
@@ -186,7 +232,9 @@
     },
     "/private/delete/users/{id}": {
       "delete": {
-        "tags": ["Private / User"],
+        "tags": [
+          "Private / User"
+        ],
         "description": "",
         "parameters": [
           {
