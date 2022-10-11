@@ -16,7 +16,7 @@ class Querys {
 
       // Executando a query no banco de dados e retornando uma promessa
       db.exec(query, params)
-        .then((result) => resolve(result.rows))
+        .then((result) => resolve(result))
         .catch((err) => reject(err));
     });
   }
@@ -92,7 +92,7 @@ class Querys {
 
       // Executando a query no banco de dados e retornando uma promessa
       db.exec(query, values)
-        .then((result) => resolve(result.rows))
+        .then((result) => resolve(result))
         .catch((err) => reject(err));
     });
   }
@@ -107,7 +107,7 @@ class Querys {
 
       // Executando a query no banco de dados e retornando uma promessa
       db.exec(query, values)
-        .then((result) => resolve(result.rows))
+        .then((result) => resolve(result))
         .catch((err) => reject(err));
     });
   }
@@ -119,7 +119,7 @@ class Querys {
 
       // Executando a query no banco de dados e retornando uma promessa
       db.exec(query)
-        .then((result) => resolve(result.rows))
+        .then((result) => resolve(result))
         .catch((err) => reject(err));
     });
   }
