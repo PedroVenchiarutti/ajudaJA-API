@@ -14,7 +14,14 @@ exports.getAll = async (req, res, next) => {
     querys
       .select("users")
       .then((result) => {
-        res.json(result);
+        const data = result.map((item) => {
+          return {
+            id: item.id,
+            username: item.username,
+            email: item.email,
+          };
+        });
+        res.status(200).json(data);
       })
       .catch((err) => {
         next(ApiError.internal(err.message));
@@ -53,7 +60,7 @@ exports.add = async (req, res, next) => {
               $email: "teste@teste.com",
               $password: "123456",
               $passwordConfirmation: "123456",
-              $birthday: "1990-01-01",
+              $birthday: "DD-MM-YYYY",
               $emergencynumber: "11999999999",
               $helth_insurance: "Nao",
               $gender: "M",

@@ -5,7 +5,7 @@ class Querys {
   // Metodo de select do BD que retorna a query numa promesa recebendo a tabela e o id caso seja consultar por id ou não
   static select(table, id = null) {
     return new Promise((resolve, reject) => {
-      let query = `SELECT * FROM ${table}`;
+      let query = `SELECT * FROM ${table} ORDER BY id`;
       let params = [];
 
       // Validando se tiver o ID na query ele irar adicionar o WHERE e o ID na query
@@ -16,7 +16,9 @@ class Querys {
 
       // Executando a query no banco de dados e retornando uma promessa
       db.exec(query, params)
-        .then((result) => resolve(result))
+        .then((result) => {
+          resolve(result);
+        })
         .catch((err) => reject(err));
     });
   }
@@ -120,6 +122,18 @@ class Querys {
       // Executando a query no banco de dados e retornando uma promessa
       db.exec(query)
         .then((result) => resolve(result))
+        .catch((err) => reject(err));
+    });
+  }
+
+  static selectKey(table, key) {
+    return new Promise((resolve, reject) => {
+      let query = `select u.id, u.username, u.email, ui.idinfo, ui.birthday, ui.emergencynumber, ui.helth_insurance, ui."gender", ui."name", ui.lastname from ${table} u inner join users_informations ui on u.id = ui.user_id where u.id = $1`;
+
+      db.exec(query, [key])
+        .then((result) => {
+          resolve(result[0]);
+        })
         .catch((err) => reject(err));
     });
   }

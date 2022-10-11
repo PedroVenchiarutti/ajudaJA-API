@@ -9,14 +9,20 @@
       "email": "pedro.lucas.clear@gmail.com"
     }
   },
-  "host": "ajudajaapi.herokuapp.com/api",
+  "host": "ajudajaapi.herokuapp.com/api ",
   "basePath": "/",
-  "schemes": ["https"],
-  "consumes": ["application/json"],
+  "schemes": [
+    "https"
+  ],
+  "consumes": [
+    "application/json"
+  ],
   "paths": {
     "/public/login": {
       "post": {
-        "tags": ["public"],
+        "tags": [
+          "public"
+        ],
         "description": "",
         "parameters": [
           {
@@ -44,7 +50,9 @@
     },
     "/public/register": {
       "post": {
-        "tags": ["public"],
+        "tags": [
+          "public"
+        ],
         "description": "",
         "parameters": [
           {
@@ -73,7 +81,7 @@
                 },
                 "birthday": {
                   "type": "string",
-                  "example": "1990-01-01"
+                  "example": "DD-MM-YYYY"
                 },
                 "emergencynumber": {
                   "type": "string",
@@ -114,13 +122,18 @@
         "responses": {
           "200": {
             "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
           }
         }
       }
     },
     "/private/users": {
       "get": {
-        "tags": ["Private / User"],
+        "tags": [
+          "Private / User"
+        ],
         "description": "",
         "parameters": [],
         "responses": {
@@ -132,7 +145,9 @@
     },
     "/private/users/{id}": {
       "get": {
-        "tags": ["Private / User"],
+        "tags": [
+          "Private / User"
+        ],
         "description": "",
         "parameters": [
           {
@@ -151,7 +166,9 @@
     },
     "/private/update/users/{id}": {
       "put": {
-        "tags": ["Private / User"],
+        "tags": [
+          "Private / User"
+        ],
         "description": "",
         "parameters": [
           {
@@ -185,7 +202,9 @@
     },
     "/private/update/users/password/{id}": {
       "patch": {
-        "tags": ["Private / User"],
+        "tags": [
+          "Private / User"
+        ],
         "description": "",
         "parameters": [
           {
@@ -216,7 +235,30 @@
     },
     "/private/delete/users/{id}": {
       "delete": {
-        "tags": ["Private / User"],
+        "tags": [
+          "Private / User"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/private/client/{id}": {
+      "get": {
+        "tags": [
+          "Private / Client"
+        ],
         "description": "",
         "parameters": [
           {
