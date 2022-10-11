@@ -26,7 +26,9 @@ class Querys {
       let query = `SELECT * FROM ${table} WHERE email = $1`;
 
       db.exec(query, [email])
-        .then((result) => resolve(result.rows))
+        .then((result) => {
+          resolve(result);
+        })
         .catch((err) => reject(err));
     });
   }

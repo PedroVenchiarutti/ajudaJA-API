@@ -9,20 +9,14 @@
       "email": "pedro.lucas.clear@gmail.com"
     }
   },
-  "host": "ajudajaapi.herokuapp.com/api ",
+  "host": "ajudajaapi.herokuapp.com/api",
   "basePath": "/",
-  "schemes": [
-    "https"
-  ],
-  "consumes": [
-    "application/json"
-  ],
+  "schemes": ["https"],
+  "consumes": ["application/json"],
   "paths": {
     "/public/login": {
       "post": {
-        "tags": [
-          "public"
-        ],
+        "tags": ["public"],
         "description": "",
         "parameters": [
           {
@@ -50,9 +44,7 @@
     },
     "/public/register": {
       "post": {
-        "tags": [
-          "public"
-        ],
+        "tags": ["public"],
         "description": "",
         "parameters": [
           {
@@ -128,9 +120,7 @@
     },
     "/private/users": {
       "get": {
-        "tags": [
-          "Private / User"
-        ],
+        "tags": ["Private / User"],
         "description": "",
         "parameters": [],
         "responses": {
@@ -142,9 +132,7 @@
     },
     "/private/users/{id}": {
       "get": {
-        "tags": [
-          "Private / User"
-        ],
+        "tags": ["Private / User"],
         "description": "",
         "parameters": [
           {
@@ -163,9 +151,7 @@
     },
     "/private/update/users/{id}": {
       "put": {
-        "tags": [
-          "Private / User"
-        ],
+        "tags": ["Private / User"],
         "description": "",
         "parameters": [
           {
@@ -199,9 +185,7 @@
     },
     "/private/update/users/password/{id}": {
       "patch": {
-        "tags": [
-          "Private / User"
-        ],
+        "tags": ["Private / User"],
         "description": "",
         "parameters": [
           {
@@ -232,9 +216,7 @@
     },
     "/private/delete/users/{id}": {
       "delete": {
-        "tags": [
-          "Private / User"
-        ],
+        "tags": ["Private / User"],
         "description": "",
         "parameters": [
           {

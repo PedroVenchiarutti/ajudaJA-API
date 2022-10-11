@@ -9,7 +9,7 @@ const getQuery = (table) => `SELECT * FROM ${table} WHERE EMAIL = $1`;
 // Procurando o usuário no banco de dados pelo email recebido por parâmetro e retornando uma promessa
 const getMatchedUser = (email) => {
   return new Promise((resolve, reject) => {
-    db.query(getQuery("users"), [email])
+    db.exec(getQuery("users"), [email])
       .then((results) => {
         if (results.rows.length > 0) {
           resolve(results.rows[0]);
