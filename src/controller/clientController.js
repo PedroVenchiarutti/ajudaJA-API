@@ -35,18 +35,48 @@ exports.getAllKeys = async (req, res, next) => {
   }
 };
 
+// Atualizando os dados do cliente
 exports.updateClient = async (req, res, next) => {
   /*
             #swagger.tags = ['Private / Client']
-
      */
 
   const { birthday, emergencynumber, helth_insurance, gender, name, lastname } =
     req.body;
 
-  const id = req.params.id;
-
   try {
+    querys
+      .updateClient("users_informations", req.body, req.params.id)
+      .then((result) => {
+        res.status(200).json({
+          message: "Dados atualizados com sucesso",
+          data: result,
+        });
+      })
+      .catch((err) => {
+        console.log(err);
+        next(ApiError.internal(err.message));
+      });
+  } catch (e) {
+    next(ApiError.internal(e.message));
+  }
+};
+
+// Adicionando alergias ao cliente
+exports.addAllergy = async (req, res, next) => {
+  try {
+    console.log(req.body);
+    querys
+      .insert("ill_allergy", req.body)
+      .then((result) => {
+        res.status(200).json({
+          message: "Alergia cadastrada com sucesso",
+          data: result,
+        });
+      })
+      .catch((err) => {
+        next(ApiError.internal(err.message));
+      });
   } catch (e) {
     next(ApiError.internal(e.message));
   }

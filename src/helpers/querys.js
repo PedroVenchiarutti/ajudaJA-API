@@ -39,6 +39,7 @@ class Querys {
   static insert(table, params) {
     return new Promise((resolve, reject) => {
       let query = `INSERT INTO ${table} (`;
+      console.log(table);
 
       // Pegando as chaves do objeto params e passando para um array
       let keys = Object.keys(params);
@@ -90,7 +91,7 @@ class Querys {
       });
 
       // Adicionando os parametros na query e separando por virgula
-      query += `${paramKeys.join(", ")} WHERE id = ${id}`;
+      query += `${paramKeys.join(", ")} WHERE id = ${id} RETURNING *`;
 
       // Executando a query no banco de dados e retornando uma promessa
       db.exec(query, values)
@@ -126,6 +127,7 @@ class Querys {
     });
   }
 
+  // filtrando os dados do cliente apartir do id do usuario
   static selectKey(table, key) {
     return new Promise((resolve, reject) => {
       let query = `select u.id, u.username, u.email, ui.idinfo, ui.birthday, ui.emergencynumber, ui.helth_insurance, ui."gender", ui."name", ui.lastname from ${table} u inner join users_informations ui on u.id = ui.user_id where u.id = $1`;
@@ -133,6 +135,38 @@ class Querys {
       db.exec(query, [key])
         .then((result) => {
           resolve(result[0]);
+        })
+        .catch((err) => reject(err));
+    });
+  }
+
+  // filtrando os dados do cliente apartir do id do usuario
+  static updateClient(table, params, id) {
+    return new Promise((resolve, reject) => {
+      let query = `UPDATE ${table} SET birthday = $1, emergencynumber = $2, helth_insurance = $3, gender =$4, name = $5, lastname = $6, avatar = $7 `;
+
+      // Pegando os valores do objeto params e passando para um array
+      let values = Object.values(params);
+
+      query += ` WHERE user_id = ${id} RETURNING *`;
+
+      // Executando a query no banco de dados e retornando uma promessa
+      db.exec(query, values)
+        .then((result) => resolve(result))
+        .catch((err) => reject(err));
+    });
+  }
+
+  // filtrando as alergias do cliente apartir do id do usuario
+  static selectAlergies(table, key) {
+    return new Promise((resolve, reject) => {
+      let query = `select * from ${table} ia
+      inner join users_informations ui on ia.info_id = ui.idinfo where ui.idinfo = 35
+      `;
+
+      db.exec(query, [key])
+        .then((result) => {
+          resolve(result);
         })
         .catch((err) => reject(err));
     });

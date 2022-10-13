@@ -4,28 +4,37 @@ const dotenv = require("dotenv").config();
 const bodyParser = require("body-parser");
 const allowCors = require("./cors");
 const routes = require("../routes/index");
-const server = express();
+const app = express();
 const apiErrorHandler = require("../error/errorHandler");
+const { Server } = require("socket.io");
+const server = require("http").createServer(app);
+
+const io = new Server(server, {
+  cors: {
+    origin: "http://localhost:5173",
+    methods: ["GET", "POST"],
+  },
+});
 
 // Swagger
 const swaggerUI = require("swagger-ui-express");
 const swaggerFile = require("./swagger_output.json");
 
-server.use(bodyParser.json());
-server.use(
+app.use(bodyParser.json());
+app.use(
   bodyParser.urlencoded({
     extended: true,
   })
 );
-server.use(allowCors);
-server.use(cors());
+app.use(allowCors);
+app.use(cors());
 
 //EndPoint
-server.use("/api", routes);
+app.use("/api", routes);
 // Middleware de tratamento de erros
-server.use(apiErrorHandler);
+app.use(apiErrorHandler);
 
 // NAO ENVIAR O SWAGGER NA PRODUCAO
-server.use("/docs", swaggerUI.serve, swaggerUI.setup(swaggerFile));
+app.use("/docs", swaggerUI.serve, swaggerUI.setup(swaggerFile));
 
-module.exports = server;
+module.exports = { app, io };

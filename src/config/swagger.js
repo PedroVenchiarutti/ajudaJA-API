@@ -13,7 +13,7 @@ const doc = {
       email: "pedro.lucas.clear@gmail.com",
     },
   },
-  host: "ajudajaapi.herokuapp.com/api ",
+  host: "ajudajaapi.herokuapp.com/api",
   schemes: ["https"],
   consumes: ["application/json"],
   securytiDefinitions: {},

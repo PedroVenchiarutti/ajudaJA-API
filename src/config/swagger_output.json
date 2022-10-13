@@ -9,7 +9,7 @@
       "email": "pedro.lucas.clear@gmail.com"
     }
   },
-  "host": "ajudajaapi.herokuapp.com/api ",
+  "host": "ajudajaapi.herokuapp.com/api",
   "basePath": "/",
   "schemes": [
     "https"
@@ -268,6 +268,65 @@
             "type": "string"
           }
         ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/private/client/add/{id}": {
+      "post": {
+        "tags": [
+          "Private / Client"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "birthday": {
+                  "example": "any"
+                },
+                "emergencynumber": {
+                  "example": "any"
+                },
+                "helth_insurance": {
+                  "example": "any"
+                },
+                "gender": {
+                  "example": "any"
+                },
+                "name": {
+                  "example": "any"
+                },
+                "lastname": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/private/client/add/allergy": {
+      "post": {
+        "description": "",
+        "parameters": [],
         "responses": {
           "200": {
             "description": "OK"

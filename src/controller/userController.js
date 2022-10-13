@@ -88,43 +88,52 @@ exports.add = async (req, res, next) => {
             message: "Email ja cadastrado! ",
           });
         } else {
-          querys.insert("users", data).then((result) => {
-            const id = result[0].id;
-            const {
-              birthday,
-              emergencynumber,
-              helth_insurance,
-              gender,
-              name,
-              lastname,
-            } = req.body;
+          querys
+            .insert("users", data)
+            .then((result) => {
+              const id = result[0].id;
+              const {
+                birthday,
+                emergencynumber,
+                helth_insurance,
+                gender,
+                name,
+                lastname,
+              } = req.body;
 
-            const data = {
-              user_id: id,
-              birthday,
-              emergencynumber,
-              helth_insurance,
-              gender,
-              name,
-              lastname,
-            };
-
-            querys.insert("users_informations", data).then((results) => {
-              res.status(200).json({
-                message: "Cliente cadastrado com sucesso! ",
-                data: {
-                  user: {
-                    id: result[0].id,
-                    username: result[0].username,
-                    email: result[0].email,
-                  },
-                  user_informations: {
-                    ...results[0],
-                  },
-                },
-              });
+              const data = {
+                user_id: id,
+                birthday,
+                emergencynumber,
+                helth_insurance,
+                gender,
+                name,
+                lastname,
+              };
+              querys
+                .insert("users_informations", data)
+                .then((results) => {
+                  res.status(200).json({
+                    message: "Cliente cadastrado com sucesso! ",
+                    data: {
+                      user: {
+                        id: result[0].id,
+                        username: result[0].username,
+                        email: result[0].email,
+                      },
+                      user_informations: {
+                        ...results[0],
+                      },
+                    },
+                  });
+                })
+                .catch((err) => {
+                  next(ApiError.internal(err.message));
+                });
+            })
+            .catch((err) => {
+              next(ApiError.internal(err.message));
             });
-          });
         }
       })
       .catch((err) => {
