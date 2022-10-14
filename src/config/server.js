@@ -8,7 +8,6 @@ const app = express();
 const apiErrorHandler = require("../error/errorHandler");
 const { Server } = require("socket.io");
 const server = require("http").createServer(app);
-const validationToken = require("../middlewares/validationTokenMIddleware");
 
 const io = new Server(server, {
   cors: {
