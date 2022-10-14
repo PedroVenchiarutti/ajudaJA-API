@@ -1,7 +1,7 @@
 const express = require("express");
 const publicRoutes = require("../routes/publicRoutes");
 const privateRoutes = require("../routes/privateRoutes");
-const validationToken = require("../middlewares/validationTokenMIddleware");
+const validationToken = require("../middlewares/validationTokenMiddleware");
 
 const Routes = express.Router();
 

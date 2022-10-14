@@ -1,4 +1,3 @@
-const ApiError = require("../error/ApiError");
 const { decodeToken } = require("../config/token.js");
 
 // Middleware de validação do token
