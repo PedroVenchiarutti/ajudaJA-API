@@ -8,6 +8,10 @@ const crypto = require("../config/bcrypt");
 exports.getAll = async (req, res, next) => {
   /*
       #swagger.tags = ['Private / User']
+      #swagger.security = [{
+            "bearerAuth": []
+          },
+        ]
   */
 
   try {
@@ -35,6 +39,10 @@ exports.getAll = async (req, res, next) => {
 exports.getById = async (req, res, next) => {
   /*
       #swagger.tags = ['Private / User']
+      #swagger.security = [{
+            "bearerAuth": []
+          },
+        ]
   */
 
   try {
@@ -148,6 +156,10 @@ exports.add = async (req, res, next) => {
 exports.updateAll = async (req, res, next) => {
   /*
       #swagger.tags = ['Private / User']
+      #swagger.security = [{
+            "bearerAuth": []
+          },
+        ]
   */
   try {
     const { username, email } = req.body;
@@ -176,6 +188,10 @@ exports.updateAll = async (req, res, next) => {
 exports.updatePassword = async (req, res, next) => {
   /*
       #swagger.tags = ['Private / User']
+      #swagger.security = [{
+            "bearerAuth": []
+          },
+        ]
   */
 
   try {
@@ -205,6 +221,10 @@ exports.updatePassword = async (req, res, next) => {
 exports.delete = async (req, res, next) => {
   /*
       #swagger.tags = ['Private / User']
+      #swagger.security = [{
+            "bearerAuth": []
+          },
+        ]
   */
 
   try {

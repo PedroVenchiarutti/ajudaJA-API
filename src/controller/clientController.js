@@ -6,6 +6,10 @@ const ApiError = require("../error/apiError");
 exports.getAllKeys = async (req, res, next) => {
   /*
         #swagger.tags = ['Private / Client']
+        #swagger.security = [{
+            "bearerAuth": []
+          },
+        ]
 
    */
 
@@ -55,6 +59,10 @@ exports.getAllKeys = async (req, res, next) => {
 exports.updateClient = async (req, res, next) => {
   /*
             #swagger.tags = ['Private / Client']
+            #swagger.security = [{
+            "bearerAuth": []
+          },
+        ]
      */
 
   const { birthday, emergencynumber, helth_insurance, gender, name, lastname } =
@@ -82,6 +90,10 @@ exports.updateClient = async (req, res, next) => {
 exports.addAllergy = async (req, res, next) => {
   /*
             #swagger.tags = ['Private / Client']
+            #swagger.security = [{
+            "bearerAuth": []
+          },
+        ]
      */
 
   try {
@@ -105,6 +117,10 @@ exports.addAllergy = async (req, res, next) => {
 exports.updateAllergy = async (req, res, next) => {
   /*
             #swagger.tags = ['Private / Client']
+            #swagger.security = [{
+            "bearerAuth": []
+          },
+        ]
      */
 
   try {
