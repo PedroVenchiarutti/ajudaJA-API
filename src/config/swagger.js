@@ -16,7 +16,13 @@ const doc = {
   host: "ajudajaapi.herokuapp.com/api",
   schemes: ["https"],
   consumes: ["application/json"],
-  securytiDefinitions: {},
+  securytiDefinitions: {
+    bearerAuth: {
+      type: "http",
+      scheme: "bearer",
+      bearerFormat: "JWT",
+    },
+  },
 };
 
 swaggerAutogen(outputFile, endpointsFiles, doc);

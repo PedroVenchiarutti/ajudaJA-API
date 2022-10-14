@@ -25,7 +25,23 @@ exports.getAllKeys = async (req, res, next) => {
           birthday: date,
         };
 
-        res.status(200).json(data);
+        res.status(200).json({
+          message: "Dados do cliente",
+          user: {
+            id: result.id,
+            username: result.username,
+            email: result.email,
+          },
+          user_informations: {
+            idinfo: result.idinfo,
+            birthday: data.birthday,
+            emergencynumber: result.emergencynumber,
+            helth_insuranceo: result.helth_insurance,
+            gender: result.gender,
+            name: result.name,
+            lastname: result.lastname,
+          },
+        });
       })
       .catch((err) => {
         next(ApiError.internal(err.message));
@@ -64,13 +80,39 @@ exports.updateClient = async (req, res, next) => {
 
 // Adicionando alergias ao cliente
 exports.addAllergy = async (req, res, next) => {
+  /*
+            #swagger.tags = ['Private / Client']
+     */
+
   try {
-    console.log(req.body);
     querys
-      .insert("ill_allergy", req.body)
+      .insert("ill_allergy", req.body, req.params.id)
       .then((result) => {
         res.status(200).json({
           message: "Alergia cadastrada com sucesso",
+          data: result,
+        });
+      })
+      .catch((err) => {
+        next(ApiError.internal(err.message));
+      });
+  } catch (e) {
+    next(ApiError.internal(e.message));
+  }
+};
+
+// Atualizando alergias do cliente
+exports.updateAllergy = async (req, res, next) => {
+  /*
+            #swagger.tags = ['Private / Client']
+     */
+
+  try {
+    querys
+      .updateAll("ill_allergy", req.body, req.params.id, "idallergy")
+      .then((result) => {
+        res.status(200).json({
+          message: "Alergia atualizada com sucesso",
           data: result,
         });
       })

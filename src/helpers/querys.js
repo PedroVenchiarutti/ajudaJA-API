@@ -61,6 +61,8 @@ class Querys {
         ", "
       )}) RETURNING *`;
 
+      console.log(query);
+
       // Executando a query no banco de dados e retornando uma promessa
       db.exec(query, values)
         .then((result) => {
@@ -71,7 +73,7 @@ class Querys {
   }
 
   // Metodo de update de todos os campos menos o password
-  static updateAll(table, params, id) {
+  static updateAll(table, params, id, column = "id") {
     return new Promise((resolve, reject) => {
       let query = `UPDATE ${table} SET `;
 
@@ -91,7 +93,9 @@ class Querys {
       });
 
       // Adicionando os parametros na query e separando por virgula
-      query += `${paramKeys.join(", ")} WHERE id = ${id} RETURNING *`;
+      query += `${paramKeys.join(", ")} WHERE ${column} = ${id} RETURNING *`;
+
+      console.log(query);
 
       // Executando a query no banco de dados e retornando uma promessa
       db.exec(query, values)

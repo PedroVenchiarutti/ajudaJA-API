@@ -13,8 +13,8 @@ Routes.delete("/delete/users/:id", users.delete);
 Routes.get("/client/:id", client.getAllKeys);
 Routes.post("/client/add/:id", client.updateClient);
 
-
 // ROTAS DE CADASTRO DE ALERGIA
-Routes.post("/client/add/allergy", client.addAllergy);
+Routes.post("/client/allergy/add", client.addAllergy);
+Routes.put("/client/allergy/update/:id", client.updateAllergy);
 
 module.exports = Routes;
