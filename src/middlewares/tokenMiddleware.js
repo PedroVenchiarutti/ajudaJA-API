@@ -1,7 +1,7 @@
 const { decodeToken } = require("../config/token.js");
 
 // Middleware de validação do token
-const validationToken = async (req, res, next) => {
+const tokenMiddleware = async (req, res, next) => {
   const token = req.headers.authorization;
   if (!token) {
     return res
@@ -16,4 +16,4 @@ const validationToken = async (req, res, next) => {
   }
 };
 
-module.exports = validationToken;
+module.exports = tokenMiddleware;
