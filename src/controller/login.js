@@ -17,7 +17,7 @@ exports.login = (req, res, next) => {
     .then((user) => {
       res.json({
         message: "Login realizado com sucesso",
-        data: user,
+        user,
       });
     })
     .catch((error) => {

@@ -74,7 +74,7 @@ exports.updateClient = async (req, res, next) => {
       .then((result) => {
         res.status(200).json({
           message: "Dados atualizados com sucesso",
-          data: result,
+          client: result,
         });
       })
       .catch((err) => {
@@ -114,7 +114,7 @@ exports.addAllergy = async (req, res, next) => {
       .then((result) => {
         res.status(200).json({
           message: "Alergia cadastrada com sucesso",
-          data: result,
+          allergyClient: result,
         });
       })
       .catch((err) => {
@@ -152,7 +152,7 @@ exports.updateAllergy = async (req, res, next) => {
       .then((result) => {
         res.status(200).json({
           message: "Alergia atualizada com sucesso",
-          data: result,
+          allergyClient: result,
         });
       })
       .catch((err) => {
@@ -179,7 +179,7 @@ exports.deleteAllergy = async (req, res, next) => {
       .then((result) => {
         res.status(200).json({
           message: "Alergia deletada com sucesso",
-          data: result,
+          allergyClient: result,
         });
       })
       .catch((err) => {

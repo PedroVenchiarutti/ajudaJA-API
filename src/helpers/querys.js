@@ -60,7 +60,6 @@ class Querys {
         ", "
       )}) RETURNING *`;
 
-      console.log(query);
 
       // Executando a query no banco de dados e retornando uma promessa
       db.exec(query, values)
