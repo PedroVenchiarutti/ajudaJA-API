@@ -93,7 +93,19 @@ exports.addAllergy = async (req, res, next) => {
             #swagger.security = [{
             "bearerAuth": []
           },
-        ]
+        ],
+        #swagger.parameters['obj'] = {
+            in: 'body',
+            description: 'Objeto com os dados da alergia',
+            required: true,
+            type: 'object',
+            schema: { 
+              $info_id: "35",
+              $name_illness: "Alergia",
+              $description: "Alergia a poeira"
+            }
+        }
+
      */
 
   try {
@@ -120,7 +132,18 @@ exports.updateAllergy = async (req, res, next) => {
             #swagger.security = [{
             "bearerAuth": []
           },
-        ]
+        ],
+        #swagger.parameters['obj'] = {
+            in: 'body',
+            description: 'Objeto com os dados da alergia',
+            required: true,
+            type: 'object',
+            schema: {
+              $name_illness: "Alergia",
+              $description: "Alergia a pelvis"
+            }
+        }
+
      */
 
   try {
@@ -129,6 +152,33 @@ exports.updateAllergy = async (req, res, next) => {
       .then((result) => {
         res.status(200).json({
           message: "Alergia atualizada com sucesso",
+          data: result,
+        });
+      })
+      .catch((err) => {
+        next(ApiError.internal(err.message));
+      });
+  } catch (e) {
+    next(ApiError.internal(e.message));
+  }
+};
+
+// Deletando uma alergia cadastrada
+exports.deleteAllergy = async (req, res, next) => {
+  /*
+            #swagger.tags = ['Private / Client']
+            #swagger.security = [{
+            "bearerAuth": []
+          },
+        ]
+     */
+
+  try {
+    querys
+      .delete("ill_allergy", req.params.id, "idallergy")
+      .then((result) => {
+        res.status(200).json({
+          message: "Alergia deletada com sucesso",
           data: result,
         });
       })

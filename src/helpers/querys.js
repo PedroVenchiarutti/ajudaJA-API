@@ -39,7 +39,6 @@ class Querys {
   static insert(table, params) {
     return new Promise((resolve, reject) => {
       let query = `INSERT INTO ${table} (`;
-      console.log(table);
 
       // Pegando as chaves do objeto params e passando para um array
       let keys = Object.keys(params);
@@ -120,9 +119,9 @@ class Querys {
   }
 
   // Metodo de deletar do BD que retorna a query numa promessa recebendo a tabela e o id
-  static delete(table, id) {
+  static delete(table, id, column = "id") {
     return new Promise((resolve, reject) => {
-      let query = `DELETE FROM ${table} WHERE id = ${id}`;
+      let query = `DELETE FROM ${table} WHERE ${column} = ${id} RETURNING *`;
 
       // Executando a query no banco de dados e retornando uma promessa
       db.exec(query)

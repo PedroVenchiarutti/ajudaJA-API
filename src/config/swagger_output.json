@@ -354,8 +354,8 @@
         ]
       }
     },
-    "/private/client/add/{id}": {
-      "post": {
+    "/private/client/update/{id}": {
+      "put": {
         "tags": [
           "Private / Client"
         ],
@@ -426,6 +426,34 @@
             "name": "authorization",
             "in": "header",
             "type": "string"
+          },
+          {
+            "name": "obj",
+            "in": "body",
+            "description": "Objeto com os dados da alergia",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "info_id": {
+                  "type": "string",
+                  "example": "35"
+                },
+                "name_illness": {
+                  "type": "string",
+                  "example": "Alergia"
+                },
+                "description": {
+                  "type": "string",
+                  "example": "Alergia a poeira"
+                }
+              },
+              "required": [
+                "info_id",
+                "name_illness",
+                "description"
+              ]
+            }
           }
         ],
         "responses": {
@@ -445,6 +473,63 @@
     },
     "/private/client/allergy/update/{id}": {
       "put": {
+        "tags": [
+          "Private / Client"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "obj",
+            "in": "body",
+            "description": "Objeto com os dados da alergia",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "name_illness": {
+                  "type": "string",
+                  "example": "Alergia"
+                },
+                "description": {
+                  "type": "string",
+                  "example": "Alergia a poeira"
+                }
+              },
+              "required": [
+                "name_illness",
+                "description"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/private/client/allergy/delete/{id}": {
+      "delete": {
         "tags": [
           "Private / Client"
         ],

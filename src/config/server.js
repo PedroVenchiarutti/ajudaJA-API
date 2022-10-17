@@ -37,4 +37,4 @@ app.use(apiErrorHandler);
 // NAO ENVIAR O SWAGGER NA PRODUCAO
 app.use("/docs", swaggerUI.serve, swaggerUI.setup(swaggerFile));
 
-module.exports = { app, io };
+module.exports = { server, io };

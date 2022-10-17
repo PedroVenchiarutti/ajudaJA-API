@@ -8,4 +8,5 @@ const Routes = express.Router();
 Routes.use("/public", publicRoutes);
 Routes.use("/private", tokenMiddleware, privateRoutes);
 
+
 module.exports = Routes;

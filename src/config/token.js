@@ -19,3 +19,6 @@ exports.decodeToken = async (token) => {
   const data = await jwt.verify(token, process.env.TOKEN_SECRET);
   return data;
 };
+
+
+// Refresh Token
