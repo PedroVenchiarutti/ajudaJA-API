@@ -4,8 +4,11 @@ const client = require("../controller/clientController");
 // const webChat = require("../controller/webChat");
 const Routes = express.Router();
 
+
 // Rotas para chat do cliente
 // Routes.get("/chat", webChat.webChat);
+
+
 
 // Rotas de usuarios
 Routes.get("/users", users.getAll);

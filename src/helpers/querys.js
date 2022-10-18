@@ -111,6 +111,8 @@ class Querys {
       // Pegando os valores do objeto params e passando para um array
       let values = Object.values(params);
 
+      console.log(query);
+
       // Executando a query no banco de dados e retornando uma promessa
       db.exec(query, values)
         .then((result) => resolve(result))

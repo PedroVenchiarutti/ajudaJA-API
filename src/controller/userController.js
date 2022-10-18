@@ -1,6 +1,8 @@
 const db = require("../config/dbconnection");
 const querys = require("../helpers/querys");
 const ApiError = require("../error/apiError");
+const token = require("../config/token");
+const rum = require("../config/nodemailer");
 
 const crypto = require("../config/bcrypt");
 
@@ -236,6 +238,69 @@ exports.delete = async (req, res, next) => {
         res.status(200).json({
           message: "Usuario deletado com sucesso! ",
         });
+      })
+      .catch((err) => {
+        next(ApiError.internal(err.message));
+      });
+  } catch (e) {
+    next(ApiError.internal(e.message));
+  }
+};
+
+// Password recovery
+exports.passwordRecovery = async (req, res, next) => {
+  try {
+    const { password } = req.body;
+    const newToken = await token.decodeToken(req.headers.authorization);
+
+    const hash = await crypto.getHash(password);
+
+    const data = {
+      password: hash,
+    };
+
+    querys
+      .updatePassword("users", data, newToken.id)
+      .then((result) => {
+        res.status(200).json({
+          message: "Senha atualizada com sucesso! ",
+        });
+      })
+      .catch((err) => {
+        console.log(err);
+        next(ApiError.internal(err.message));
+      });
+  } catch (e) {
+    console.log(e);
+    next(ApiError.internal(e.message));
+  }
+};
+
+exports.generateToken = async (req, res, next) => {
+  try {
+    const { email } = req.body;
+
+    // Verificar se o usuario ja existe
+    querys
+      .verifyEmail("users", email)
+      .then(async (result) => {
+        if (result.length > 0) {
+          const tokens = await token.generateToken(result[0].id, "3m");
+          rum(
+            "guilherme.carvalho.clear@gmail.com",
+            "Recuperação de senha",
+            `Para recuperar sua senha utilize esse clique nesse link: e insirar o os dados pedidos no formulario.
+          token: ${tokens}`
+          );
+          res.status(200).json({
+            message: "Token gerado com sucesso! ",
+            tokens,
+          });
+        } else {
+          res.status(400).json({
+            message: "Email nao cadastrado! ",
+          });
+        }
       })
       .catch((err) => {
         next(ApiError.internal(err.message));

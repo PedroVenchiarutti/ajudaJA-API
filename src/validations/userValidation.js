@@ -7,7 +7,7 @@ const phoneRegExp =
 const userSchema = yup.object().shape({
   username: yup.string().required(),
   email: yup.string().email().required(),
-  password: yup.string().required(),
+  password: yup.string().required().min(6),
   passwordConfirmation: yup
     .string()
     .oneOf([yup.ref("password"), null], "As senhas nao sao iguais")
