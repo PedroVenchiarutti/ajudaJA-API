@@ -107,6 +107,7 @@ exports.add = async (req, res, next) => {
                 gender,
                 name,
                 lastname,
+                avatar,
               } = req.body;
 
               const data = {
@@ -117,6 +118,7 @@ exports.add = async (req, res, next) => {
                 gender,
                 name,
                 lastname,
+                avatar,
               };
               querys
                 .insert("users_informations", data)
