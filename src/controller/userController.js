@@ -47,9 +47,11 @@ exports.getById = async (req, res, next) => {
         ]
   */
 
+  const { id } = req.params;
+
   try {
-    querys.select("users", req.params.id).then((result) => {
-      res.json(result);
+    querys.select("users", id).then((result) => {
+      res.status(200).json(result);
     });
   } catch (e) {
     next(ApiError.internal(e.message));
@@ -251,6 +253,7 @@ exports.delete = async (req, res, next) => {
 exports.passwordRecovery = async (req, res, next) => {
   try {
     const { password } = req.body;
+
     const newToken = await token.decodeToken(req.headers.authorization);
 
     const hash = await crypto.getHash(password);
@@ -285,16 +288,15 @@ exports.generateToken = async (req, res, next) => {
       .verifyEmail("users", email)
       .then(async (result) => {
         if (result.length > 0) {
-          const tokens = await token.generateToken(result[0].id, "3m");
+          const newToken = await token.generateToken(result[0].id, "3m");
           rum(
             "guilherme.carvalho.clear@gmail.com",
             "Recuperação de senha",
-            `Para recuperar sua senha utilize esse clique nesse link: e insirar o os dados pedidos no formulario.
-          token: ${tokens}`
+            `Para recuperar sua senha utilize esse clique nesse link:http://localhost:3333/api/private/recovery/?token=${newToken}`
           );
           res.status(200).json({
-            message: "Token gerado com sucesso! ",
-            tokens,
+            message: "Email enviado com sucesso. Aguarde alguns minutos! ",
+            token: newToken,
           });
         } else {
           res.status(400).json({

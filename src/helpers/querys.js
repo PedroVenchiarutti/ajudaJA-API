@@ -5,14 +5,16 @@ class Querys {
   // Metodo de select do BD que retorna a query numa promesa recebendo a tabela e o id caso seja consultar por id ou não
   static select(table, id = null) {
     return new Promise((resolve, reject) => {
-      let query = `SELECT * FROM ${table} ORDER BY id`;
+      let query = `SELECT * FROM ${table} `;
       let params = [];
 
       // Validando se tiver o ID na query ele irar adicionar o WHERE e o ID na query
       if (id) {
-        query += ` WHERE id = ${id}`;
+        query += `WHERE id = $1`;
         params.push(id);
       }
+
+      console.log(query);
 
       // Executando a query no banco de dados e retornando uma promessa
       db.exec(query, params)
@@ -110,8 +112,6 @@ class Querys {
 
       // Pegando os valores do objeto params e passando para um array
       let values = Object.values(params);
-
-      console.log(query);
 
       // Executando a query no banco de dados e retornando uma promessa
       db.exec(query, values)
