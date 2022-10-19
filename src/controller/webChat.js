@@ -9,6 +9,8 @@ exports.webChat = (req, res) => {
       console.log(room);
       io.emit("join_room", room);
     });
+
+    
   });
 
   //   io.on("connection", (socket) => {

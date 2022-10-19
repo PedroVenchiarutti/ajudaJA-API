@@ -135,7 +135,7 @@ class Querys {
   // filtrando os dados do cliente apartir do id do usuario
   static selectKey(table, key) {
     return new Promise((resolve, reject) => {
-      let query = `select u.id, u.username, u.email, ui.idinfo, ui.birthday, ui.emergencynumber, ui.helth_insurance, ui."gender", ui."name", ui.lastname from ${table} u inner join users_informations ui on u.id = ui.user_id where u.id = $1`;
+      let query = `select u.id, u.username, u.email, ui.idinfo, ui.birthday, ui.emergencynumber, ui.helth_insurance, ui."gender", ui."name", ui.lastname, ui.avatar from ${table} u inner join users_informations ui on u.id = ui.user_id where u.id = $1`;
 
       db.exec(query, [key])
         .then((result) => {
