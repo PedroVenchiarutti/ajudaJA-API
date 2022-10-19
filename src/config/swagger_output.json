@@ -18,10 +18,91 @@
     "application/json"
   ],
   "paths": {
+    "/private/recovery": {
+      "post": {
+        "tags": [
+          "Private / Client"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "obj",
+            "in": "body",
+            "description": "Informações do para troca de senha",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "password": {
+                  "type": "string",
+                  "example": "123456"
+                },
+                "passwordConfirmation": {
+                  "type": "string",
+                  "example": "123456"
+                }
+              },
+              "required": [
+                "password",
+                "passwordConfirmation"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/public/recovery": {
+      "post": {
+        "tags": [
+          "Public"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "email": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          }
+        }
+      }
+    },
     "/public/login": {
       "post": {
         "tags": [
-          "public"
+          "Public"
         ],
         "description": "",
         "parameters": [
@@ -51,7 +132,7 @@
     "/public/register": {
       "post": {
         "tags": [
-          "public"
+          "Public"
         ],
         "description": "",
         "parameters": [
@@ -102,6 +183,10 @@
                 "lastname": {
                   "type": "string",
                   "example": "Lucas"
+                },
+                "avatar": {
+                  "type": "string",
+                  "example": "urlImg"
                 }
               },
               "required": [
@@ -114,7 +199,8 @@
                 "helth_insurance",
                 "gender",
                 "name",
-                "lastname"
+                "lastname",
+                "avatar"
               ]
             }
           }
@@ -503,7 +589,7 @@
                 },
                 "description": {
                   "type": "string",
-                  "example": "Alergia a poeira"
+                  "example": "Alergia a pelvis"
                 }
               },
               "required": [

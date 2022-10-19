@@ -7,7 +7,7 @@ const apiError = require("../error/apiError");
 // Criando uma funcao de login que recebe o email e a senha pelo body da requisicao
 exports.login = (req, res, next) => {
   /*
-      #swagger.tags = ['public']
+      #swagger.tags = ['Public']
   */
 
   const { email, password } = req.body;

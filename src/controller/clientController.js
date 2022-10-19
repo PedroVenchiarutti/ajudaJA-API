@@ -17,8 +17,6 @@ exports.getAllKeys = async (req, res, next) => {
     querys
       .selectKey("users", req.params.id)
       .then((result) => {
-        console.log(result);
-
         // convertendo a data para padrao brazileiro
         const date = result.birthday
           .toISOString()

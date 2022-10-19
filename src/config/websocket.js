@@ -4,25 +4,42 @@ const { io } = require("./server");
 //   console.log(`User connected: ${socket.id}`);
 // });
 
-const notification = [];
+const users = [];
+
+const messages = [];
 
 io.on("connection", (socket) => {
-  console.log(`User connected: ${socket.id}`);
+  socket.on("select_room", (data) => {
+    socket.join(data.room);
 
-  socket.join("room1");
+    const userInRoom = users.find(
+      (user) => user.username === data.username && user.room === data.room
+    );
 
-  // Recebndo a msg do cliente pelo front-end
-  socket.on("chat_message", (data) => {
-    console.log(data);
+    if (userInRoom) {
+      userInRoom.socketId = socket.id;
+    } else {
+      users.push({
+        room: data.room,
+        username: data.user,
+        socketId: socket.id,
+      });
+    }
+  });
+  socket.on("message", (data) => {
+    // Salvar as mensagens
     const message = {
       room: data.room,
-      message: data.message,
-      user: data.user,
+      username: data.username,
+      text: data.message,
       createdAt: new Date(),
     };
-    notification.push(message);
 
-    // Enviando a msg para o front-end
-    io.to(data.room).emit("chat_message", message);
+    console.log(message);
+
+    messages.push(message);
+    // Enviar para os usuarios da sala
+    // todos os usuario da sala recebe
+    io.to(data.room).emit("message", message);
   });
 });

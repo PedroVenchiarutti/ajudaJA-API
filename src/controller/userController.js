@@ -61,7 +61,7 @@ exports.getById = async (req, res, next) => {
 // Adicionar Usuario
 exports.add = async (req, res, next) => {
   /*
-      #swagger.tags = ['public']
+      #swagger.tags = ['Public']
       #swagger.parameters['obj'] = {
               in: 'body',
               description: 'Informações do usuario',
@@ -77,7 +77,8 @@ exports.add = async (req, res, next) => {
               $helth_insurance: "Nao",
               $gender: "M",
               $name: "Pedro",
-              $lastname: "Lucas"
+              $lastname: "Lucas",
+              $avatar: "urlImg"
               }
     }
   */
@@ -251,6 +252,24 @@ exports.delete = async (req, res, next) => {
 
 // Password recovery
 exports.passwordRecovery = async (req, res, next) => {
+  /*
+        #swagger.tags = ['Private / Client']
+        #swagger.security = [{
+            "bearerAuth": []
+          },
+        ],
+       #swagger.parameters['obj'] = {
+              in: 'body',
+              description: 'Informações do para troca de senha',
+              required: true,
+              type: 'object',
+              schema: { 
+              $password: "123456", 
+              $passwordConfirmation: "123456", 
+              }
+            }
+   */
+
   try {
     const { password } = req.body;
 
@@ -280,6 +299,9 @@ exports.passwordRecovery = async (req, res, next) => {
 };
 
 exports.generateToken = async (req, res, next) => {
+  /* #swagger.tags = ['Public']
+   */
+
   try {
     const { email } = req.body;
 
