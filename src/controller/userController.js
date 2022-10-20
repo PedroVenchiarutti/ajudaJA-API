@@ -314,7 +314,7 @@ exports.generateToken = async (req, res, next) => {
           rum(
             "guilherme.carvalho.clear@gmail.com",
             "Recuperação de senha",
-            `Para recuperar sua senha utilize esse clique nesse link:http://localhost:3333/api/private/recovery/?token=${newToken}`
+            `Para recuperar sua senha utilize esse clique nesse link:http://localhost:5173/newpassword?token=${newToken}`
           );
           res.status(200).json({
             message: "Email enviado com sucesso. Aguarde alguns minutos! ",
