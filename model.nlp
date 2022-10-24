@@ -1,0 +1,169 @@
+{
+  "settings": {
+    "languages": [
+      "pt"
+    ],
+    "forcptER": true,
+    "tag": "nlp",
+    "threshold": 0.5,
+    "autoLoad": true,
+    "autoSave": true,
+    "modelFileName": "model.nlp",
+    "calculateSentiment": true
+  },
+  "nluManager": {
+    "settings": {
+      "tag": "nlu-manager"
+    },
+    "locales": [
+      "pt"
+    ],
+    "languageNames": {},
+    "domainManagers": {
+      "pt": {
+        "settings": {
+          "locale": "pt",
+          "trainByDomain": false,
+          "tag": "domain-manager-pt",
+          "nluByDomain": {
+            "default": {
+              "className": "NeuralNlu",
+              "settings": {}
+            }
+          },
+          "useStemDict": true
+        },
+        "stemDict": {
+          "hor,que,sao": {
+            "intent": "DUVIDA",
+            "domain": "default"
+          }
+        },
+        "intentDict": {
+          "DUVIDA": "default"
+        },
+        "sentences": [
+          {
+            "domain": "default",
+            "utterance": "que horas sao",
+            "intent": "DUVIDA"
+          }
+        ],
+        "domains": {
+          "master_domain": {
+            "settings": {
+              "locale": "pt",
+              "tag": "nlu-pt",
+              "keepStopwords": true,
+              "nonefeatureValue": 1,
+              "nonedeltaMultiplier": 1.2,
+              "spellCheck": false,
+              "spellCheckDistance": 1,
+              "filterZeros": true,
+              "log": true
+            },
+            "features": {
+              "que": 1,
+              "hor": 1,
+              "sao": 1
+            },
+            "intents": {
+              "DUVIDA": 1
+            },
+            "intentFeatures": {
+              "DUVIDA": {
+                "que": 1,
+                "hor": 1,
+                "sao": 1
+              }
+            },
+            "featuresToIntent": {
+              "que": [
+                "DUVIDA"
+              ],
+              "hor": [
+                "DUVIDA"
+              ],
+              "sao": [
+                "DUVIDA"
+              ]
+            },
+            "neuralNetwork": {
+              "settings": {
+                "locale": "pt",
+                "tag": "nlu-pt",
+                "keepStopwords": true,
+                "nonefeatureValue": 1,
+                "nonedeltaMultiplier": 1.2,
+                "spellCheck": false,
+                "spellCheckDistance": 1,
+                "filterZeros": true,
+                "log": true
+              },
+              "features": [
+                "que",
+                "hor",
+                "sao"
+              ],
+              "intents": [
+                "DUVIDA"
+              ],
+              "perceptrons": [
+                [
+                  4.106055736541748,
+                  4.106055736541748,
+                  4.106055736541748,
+                  2.0879259344517775
+                ]
+              ]
+            }
+          }
+        }
+      }
+    },
+    "intentDomains": {},
+    "extraSentences": [
+      [
+        "pt",
+        "que horas sao"
+      ]
+    ]
+  },
+  "ner": {
+    "settings": {
+      "tag": "ner",
+      "entityPreffix": "%",
+      "entitySuffix": "%"
+    },
+    "rules": {}
+  },
+  "nlgManager": {
+    "settings": {
+      "tag": "nlg-manager"
+    },
+    "responses": {
+      "pt": {
+        "SAUDACAO": [
+          {
+            "answer": "Olá, tudo bem?"
+          },
+          {
+            "answer": "Estou bem e voce?"
+          }
+        ],
+        "DUVIDA": [
+          {
+            "answer": "14:30"
+          }
+        ]
+      }
+    }
+  },
+  "actionManager": {
+    "settings": {
+      "tag": "action-manager"
+    },
+    "actions": {}
+  },
+  "slotManager": {}
+}
