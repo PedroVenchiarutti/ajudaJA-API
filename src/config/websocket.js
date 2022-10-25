@@ -1,13 +1,13 @@
 const { io } = require("./server");
 const { NlpManager } = require("node-nlp");
-const { firebaseApp } = require("./dbconnection");
+// const { firebaseApp } = require("./dbconnection");
 
 const manager = new NlpManager({ languages: ["pt"], forcptER: true });
 // Adiciona os enunciados e intenções para a NLP
 
 // Criando uma colecancao de dados no Banco de dados Firebase
-const messageBot_rsp = firebaseApp.firestore().collection("message_bot_resp");
-const messageBot = firebaseApp.firestore().collection("message_bot");
+// const messageBot_rsp = firebaseApp.firestore().collection("message_bot_resp");
+// const messageBot = firebaseApp.firestore().collection("message_bot");
 
 // exports.getMessages = async () => {
 //   try {
@@ -19,41 +19,41 @@ const messageBot = firebaseApp.firestore().collection("message_bot");
 //   }
 // };
 
-async function getMessages() {
-  try {
-    const snapshot = await messageBot_rsp.get();
-    const data = snapshot.docs.map((doc) => doc.data());
-    return console.log(data);
-  } catch (error) {
-    console.log(error);
-  }
-}
+// async function getMessages() {
+//   try {
+//     const snapshot = await messageBot_rsp.get();
+//     const data = snapshot.docs.map((doc) => doc.data());
+//     return console.log(data);
+//   } catch (error) {
+//     console.log(error);
+//   }
+// }
 
-async function getSpecifyMessage() {
-  try {
-    const snapshot = await messageBot.get();
-    const data = snapshot.docs.map((doc) => {
-      let msg = doc.data().text;
-      let intent = doc.data().intent;
-      manager.addAnswer("pt", intent, msg);
-    });
-    return data;
-  } catch (error) {
-    console.log(error);
-  }
-}
+// async function getSpecifyMessage() {
+//   try {
+//     const snapshot = await messageBot.get();
+//     const data = snapshot.docs.map((doc) => {
+//       let msg = doc.data().text;
+//       let intent = doc.data().intent;
+//       manager.addAnswer("pt", intent, msg);
+//     });
+//     return data;
+//   } catch (error) {
+//     console.log(error);
+//   }
+// }
 
-async function addMessage({ text, intent }) {
-  try {
-    const addData = await messageBot.add({
-      text: text,
-      intent: intent,
-    });
-  } catch (error) {
-    console.log(error);
-  }
-}
-getSpecifyMessage();
+// async function addMessage({ text, intent }) {
+//   try {
+//     const addData = await messageBot.add({
+//       text: text,
+//       intent: intent,
+//     });
+//   } catch (error) {
+//     console.log(error);
+//   }
+// }
+// getSpecifyMessage();
 // addMessage();
 // getMessages();
 
