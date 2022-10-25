@@ -34,19 +34,39 @@
           "useStemDict": true
         },
         "stemDict": {
-          "hor,que,sao": {
+          "bom,dia": {
+            "intent": "SAUDACAO",
+            "domain": "default"
+          },
+          "bem,tud": {
             "intent": "DUVIDA",
+            "domain": "default"
+          },
+          "localizaca,qual,sua": {
+            "intent": "LOCALIZACAO",
             "domain": "default"
           }
         },
         "intentDict": {
-          "DUVIDA": "default"
+          "SAUDACAO": "default",
+          "DUVIDA": "default",
+          "LOCALIZACAO": "default"
         },
         "sentences": [
           {
             "domain": "default",
-            "utterance": "que horas sao",
+            "utterance": "Bom dia",
+            "intent": "SAUDACAO"
+          },
+          {
+            "domain": "default",
+            "utterance": "Tudo bem?",
             "intent": "DUVIDA"
+          },
+          {
+            "domain": "default",
+            "utterance": "Qual sua localizacao?",
+            "intent": "LOCALIZACAO"
           }
         ],
         "domains": {
@@ -63,29 +83,55 @@
               "log": true
             },
             "features": {
-              "que": 1,
-              "hor": 1,
-              "sao": 1
+              "bom": 1,
+              "dia": 1,
+              "tud": 1,
+              "bem": 1,
+              "qual": 1,
+              "sua": 1,
+              "localizaca": 1
             },
             "intents": {
-              "DUVIDA": 1
+              "SAUDACAO": 1,
+              "DUVIDA": 1,
+              "LOCALIZACAO": 1
             },
             "intentFeatures": {
+              "SAUDACAO": {
+                "bom": 1,
+                "dia": 1
+              },
               "DUVIDA": {
-                "que": 1,
-                "hor": 1,
-                "sao": 1
+                "tud": 1,
+                "bem": 1
+              },
+              "LOCALIZACAO": {
+                "qual": 1,
+                "sua": 1,
+                "localizaca": 1
               }
             },
             "featuresToIntent": {
-              "que": [
+              "bom": [
+                "SAUDACAO"
+              ],
+              "dia": [
+                "SAUDACAO"
+              ],
+              "tud": [
                 "DUVIDA"
               ],
-              "hor": [
+              "bem": [
                 "DUVIDA"
               ],
-              "sao": [
-                "DUVIDA"
+              "qual": [
+                "LOCALIZACAO"
+              ],
+              "sua": [
+                "LOCALIZACAO"
+              ],
+              "localizaca": [
+                "LOCALIZACAO"
               ]
             },
             "neuralNetwork": {
@@ -101,19 +147,49 @@
                 "log": true
               },
               "features": [
-                "que",
-                "hor",
-                "sao"
+                "bom",
+                "dia",
+                "tud",
+                "bem",
+                "qual",
+                "sua",
+                "localizaca"
               ],
               "intents": [
-                "DUVIDA"
+                "SAUDACAO",
+                "DUVIDA",
+                "LOCALIZACAO"
               ],
               "perceptrons": [
                 [
-                  4.106055736541748,
-                  4.106055736541748,
-                  4.106055736541748,
-                  2.0879259344517775
+                  6.023636817932129,
+                  6.023636817932129,
+                  -1.0342093706130981,
+                  -1.0342093706130981,
+                  -0.7139559388160706,
+                  -0.7139559388160706,
+                  -0.7139559388160706,
+                  2.140298407089834
+                ],
+                [
+                  -1.0182700157165527,
+                  -1.0182700157165527,
+                  6.023596286773682,
+                  6.023596286773682,
+                  -0.7163484692573547,
+                  -0.7163484692573547,
+                  -0.7163484692573547,
+                  2.1443152666033116
+                ],
+                [
+                  -0.7163794040679932,
+                  -0.7163794040679932,
+                  -0.7128929495811462,
+                  -0.7128929495811462,
+                  4.290376663208008,
+                  4.290376663208008,
+                  4.290376663208008,
+                  1.4270564621601385
                 ]
               ]
             }
@@ -125,7 +201,15 @@
     "extraSentences": [
       [
         "pt",
-        "que horas sao"
+        "Bom dia"
+      ],
+      [
+        "pt",
+        "Tudo bem?"
+      ],
+      [
+        "pt",
+        "Qual sua localizacao?"
       ]
     ]
   },
@@ -145,15 +229,17 @@
       "pt": {
         "SAUDACAO": [
           {
-            "answer": "Olá, tudo bem?"
-          },
-          {
-            "answer": "Estou bem e voce?"
+            "answer": "Oi bom dia, sou o bot spuff Como posso ajudar?"
           }
         ],
         "DUVIDA": [
           {
-            "answer": "14:30"
+            "answer": "Sim estou otimo, e voce ?"
+          }
+        ],
+        "LOCALIZACAO": [
+          {
+            "answer": "rua dos carais nas curva do caraio"
           }
         ]
       }
