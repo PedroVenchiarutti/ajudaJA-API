@@ -1,40 +1,26 @@
-const { io } = require("../config/server");
+const { firebaseApp } = require("../config/dbconnectionFirebase");
+const { timeFormat, dayFormat } = require("../helpers/newDate");
 
-const users = [];
+exports.getMsgClient = (collection) => async (req, res) => {
+  const msgClient = firebaseApp.firestore().collection(`CLIENT_${collection}`);
 
-exports.webChat = (req, res) => {
-
-  io.on("connection", (socket) => {
-    socket.on("select_room", (data) => {
-      console.log(data)
+  try {
+    const snapshot = await msgClient.get();
+    const data = snapshot.docs?.map((doc) => doc.data().date);
+    
+    const validationData = data?.filter((item, index) => {
+      if (item == undefined) return;
+      return data.indexOf(item) === index;
     });
-  });
 
+    const getMsg = await msgClient
+      ?.where("date", "==", validationData[0])
+      .get();
+    const dataMsg = getMsg.docs?.map((doc) => doc.data());
 
-  // io.on("connection", (socket) => {
-  //   socket.on("select_room", (data) => {
-  //     console.log(data);
-  //     socket.join(data.room);
-
-  //     const userInRoom = messages.find(
-  //       (user) => user.username === data.username && user.room === data.room
-  //     );
-
-  //     if (userInRoom) {
-  //       userInRoom.socketId = socket.id;
-  //     } else {
-  //       users.push({
-  //         room: data.room,
-  //         message: data.message,
-  //         username: data.user,
-  //         socketId: socket.id,
-  //       });
-  //     }
-  //     console.log(users);
-  //   });
-  // });
-
-  //   io.on("connection", (socket) => {
-  //     console.log(`User connected: ${socket.id}`);
-  //   });
-
+    // io.emit("message_client", dataMsg);
+    res.status(200).json(dataMsg);
+  } catch (error) {
+    console.log(error);
+  }
+};
