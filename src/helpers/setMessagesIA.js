@@ -38,6 +38,7 @@ exports.addResposta = async (req, res) => {
     }
 
     const addData = await messageBot_rsp.add({
+      id: uuidv4(),
       text: text,
       intent: intent,
     });
@@ -76,4 +77,3 @@ exports.deleteMessage = async (req, res) => {
     res.status(500).json({ message: "Erro ao deletar mensagem" });
   }
 };
-

@@ -37,99 +37,125 @@ async function getMessageIA() {
   });
   return data;
 }
-
-// Adicioanndo a mensagem do usuario no banco de dados
-async function addMsgClient(collection, data) {
-  try {
-    const addData = await firebaseApp
-      .database()
-      .ref(data.username)
-      .child(dayReplace)
-      .push({
-        message: data.message,
-        room: data.room,
-        user: data.user,
-        username: data.username,
-        createdAt: timeFormat(new Date()),
-        date: dayFormat(new Date()),
-      })
-      .then(() => {
-        return startBot(data.message, data.username);
-      });
-  } catch (error) {
-    console.log(error);
-  }
-}
-
-getSpecifyMessage();
-getMessageIA();
-
 // Treine e salve o modelo.
 async function startBot(msg, username) {
+  if (msg === " ") return;
   await manager.train();
   manager.save();
 
-  const response = await manager.process("pt", msg);
+  try {
+    const response = await manager.process("pt", msg.toLowerCase());
+    console.log(response);
 
-  if (msg === " ") return;
-
-  if (response.answer == null) {
-    await firebaseApp
-      .database()
-      .ref(username)
-      .child(dayReplace)
-      .push({
-        user: "bot",
-        message: "Desculpe, não entendi o que você quis dizer",
-        time: timeFormat(new Date()),
-        date: dayFormat(new Date()),
-      })
-      .then(() => {
-        io.emit("message_bot", {
+    if (response.answer == null) {
+      firebaseApp
+        .database()
+        .ref(username)
+        .child(dayReplace)
+        .push({
           user: "bot",
           message: "Desculpe, não entendi o que você quis dizer",
-          time: timeFormat(new Date()),
+          createdAt: timeFormat(new Date()),
+          date: dayFormat(new Date()),
+        })
+        .then(() => {
+          io.emit("message_bot", {
+            user: "bot",
+            message: "Desculpe, não entendi o que você quis dizer",
+            createdAt: timeFormat(new Date()),
+            date: dayFormat(new Date()),
+          });
+        })
+        .catch((error) => {
+          console.log(error.message);
         });
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+    } else {
+      firebaseApp
+        .database()
+        .ref(username)
+        .child(dayReplace)
+        .push({
+          message: response.answer,
+          user: "bot",
+          createdAt: timeFormat(new Date()),
+          date: dayFormat(new Date()),
+        })
+        .then(() => {
+          io.emit("message_bot", {
+            user: "bot",
+            message: response.answer,
+            time: timeFormat(new Date()),
+          });
+          return;
+        });
+    }
+  } catch (error) {
+    console.log(error.message);
   }
-
-  await firebaseApp
-    .database()
-    .ref(username)
-    .child(dayReplace)
-    .push({
-      message: response.answer,
-      user: "bot",
-      createdAt: timeFormat(new Date()),
-      date: dayFormat(new Date()),
-    })
-    .then(() => {
-      io.emit("message_bot", {
-        user: "bot",
-        message: response.answer,
-        time: timeFormat(new Date()),
-      });
-    });
 }
 
-io.on("connection", (socket) => {
-  socket.on("message", (data) => {
-    // Salvar as mensagens
-
-    addMsgClient(data.room, data);
-
-    const msgClient = {
+// Adicioanndo a mensagem do usuario no banco de dados
+function addMsgClient(collection, data) {
+  firebaseApp
+    .database()
+    .ref(data.username)
+    .child(dayReplace)
+    .push({
       message: data.message,
       room: data.room,
       user: data.user,
       username: data.username,
-      time: timeFormat(new Date()),
+      createdAt: timeFormat(new Date()),
       date: dayFormat(new Date()),
-    };
+    })
+    .then(() => {
+      return startBot(data.message, data.username);
+    })
+    .catch((error) => {
+      console.log(error.message);
+    });
+}
 
-    socket.emit("message_new", msgClient);
+// getSpecifyMessage();
+// getMessageIA();
+
+io.on("connection", (socket) => {
+  getSpecifyMessage();
+  getMessageIA();
+
+  socket.on("message", (data) => {
+    if (data.message === "Iniciar") {
+      // Salvar as mensagens
+      socket.emit("message_new", {
+        user: "bot",
+        message: "Olá, como posso te ajudar?",
+        createdAt: timeFormat(new Date()),
+        date: dayFormat(new Date()),
+      });
+    } else {
+      const msgClient = {
+        message: data.message,
+        room: data.room,
+        user: data.user,
+        username: data.username,
+        time: timeFormat(new Date()),
+        date: dayFormat(new Date()),
+      };
+      socket.emit("message_new", msgClient);
+    }
+
+    if (data.message === "Sair") {
+      socket.emit("message_new", {
+        user: "bot",
+        message: "Até mais, espero ter ajudado",
+        time: timeFormat(new Date()),
+      });
+      socket.disconnect();
+      return;
+    }
+    if (data.message === "Iniciar") {
+      return;
+    }
+    addMsgClient(data.room, data);
   });
 });

@@ -24,9 +24,13 @@ Routes.post(
 );
 
 // Cadastro de msg IA
+// Cadastrando a msg para o bot
 Routes.post("/private/msgIA", ia.addMessage);
+// Cadastrando a resposta do bot
 Routes.post("/private/respIA", ia.addResposta);
+// Pegando a msg do bot pela collection e uuid
 Routes.post("/private/getCollection", ia.getMessages);
+// Deletando a msg do bot pela collection e uuid
 Routes.post("/private/delete/msg", ia.deleteMessage);
 
 Routes.use("/public", publicRoutes);

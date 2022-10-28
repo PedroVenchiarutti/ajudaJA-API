@@ -34,29 +34,52 @@
           "useStemDict": true
         },
         "stemDict": {
-          "bom,dia": {
-            "intent": "SAUDACAO",
-            "domain": "default"
-          },
-          "bem,tud": {
+          "criador,foi,quem,teu": {
             "intent": "DUVIDA",
             "domain": "default"
           },
           "localizaca,qual,sua": {
             "intent": "LOCALIZACAO",
             "domain": "default"
+          },
+          "bom,dia": {
+            "intent": "SAUDACAO",
+            "domain": "default"
+          },
+          "com,fac,faz,login,par": {
+            "intent": "DUVIDA",
+            "domain": "default"
+          },
+          "bem,tud": {
+            "intent": "DUVIDA",
+            "domain": "default"
           }
         },
         "intentDict": {
-          "SAUDACAO": "default",
           "DUVIDA": "default",
-          "LOCALIZACAO": "default"
+          "LOCALIZACAO": "default",
+          "SAUDACAO": "default"
         },
         "sentences": [
           {
             "domain": "default",
+            "utterance": "Quem foi teu criador?",
+            "intent": "DUVIDA"
+          },
+          {
+            "domain": "default",
+            "utterance": "Qual sua localizacao?",
+            "intent": "LOCALIZACAO"
+          },
+          {
+            "domain": "default",
             "utterance": "Bom dia",
             "intent": "SAUDACAO"
+          },
+          {
+            "domain": "default",
+            "utterance": "Como faco para fazer login?",
+            "intent": "DUVIDA"
           },
           {
             "domain": "default",
@@ -83,25 +106,39 @@
               "log": true
             },
             "features": {
-              "bom": 1,
-              "dia": 1,
-              "tud": 1,
-              "bem": 1,
+              "quem": 1,
+              "foi": 1,
+              "teu": 1,
+              "criador": 1,
               "qual": 1,
               "sua": 1,
-              "localizaca": 1
+              "localizaca": 1,
+              "bom": 1,
+              "dia": 1,
+              "com": 1,
+              "fac": 1,
+              "par": 1,
+              "faz": 1,
+              "login": 1,
+              "tud": 1,
+              "bem": 1
             },
             "intents": {
-              "SAUDACAO": 1,
               "DUVIDA": 1,
-              "LOCALIZACAO": 1
+              "LOCALIZACAO": 1,
+              "SAUDACAO": 1
             },
             "intentFeatures": {
-              "SAUDACAO": {
-                "bom": 1,
-                "dia": 1
-              },
               "DUVIDA": {
+                "quem": 1,
+                "foi": 1,
+                "teu": 1,
+                "criador": 1,
+                "com": 1,
+                "fac": 1,
+                "par": 1,
+                "faz": 1,
+                "login": 1,
                 "tud": 1,
                 "bem": 1
               },
@@ -109,14 +146,39 @@
                 "qual": 1,
                 "sua": 1,
                 "localizaca": 1
+              },
+              "SAUDACAO": {
+                "bom": 1,
+                "dia": 1
               }
             },
             "featuresToIntent": {
-              "bom": [
-                "SAUDACAO"
+              "quem": [
+                "DUVIDA"
               ],
-              "dia": [
-                "SAUDACAO"
+              "foi": [
+                "DUVIDA"
+              ],
+              "teu": [
+                "DUVIDA"
+              ],
+              "criador": [
+                "DUVIDA"
+              ],
+              "com": [
+                "DUVIDA"
+              ],
+              "fac": [
+                "DUVIDA"
+              ],
+              "par": [
+                "DUVIDA"
+              ],
+              "faz": [
+                "DUVIDA"
+              ],
+              "login": [
+                "DUVIDA"
               ],
               "tud": [
                 "DUVIDA"
@@ -132,6 +194,12 @@
               ],
               "localizaca": [
                 "LOCALIZACAO"
+              ],
+              "bom": [
+                "SAUDACAO"
+              ],
+              "dia": [
+                "SAUDACAO"
               ]
             },
             "neuralNetwork": {
@@ -147,49 +215,85 @@
                 "log": true
               },
               "features": [
-                "bom",
-                "dia",
-                "tud",
-                "bem",
+                "quem",
+                "foi",
+                "teu",
+                "criador",
                 "qual",
                 "sua",
-                "localizaca"
+                "localizaca",
+                "bom",
+                "dia",
+                "com",
+                "fac",
+                "par",
+                "faz",
+                "login",
+                "tud",
+                "bem"
               ],
               "intents": [
-                "SAUDACAO",
                 "DUVIDA",
-                "LOCALIZACAO"
+                "LOCALIZACAO",
+                "SAUDACAO"
               ],
               "perceptrons": [
                 [
-                  6.023636817932129,
-                  6.023636817932129,
-                  -1.0342093706130981,
-                  -1.0342093706130981,
-                  -0.7139559388160706,
-                  -0.7139559388160706,
-                  -0.7139559388160706,
-                  2.140298407089834
+                  2.674299716949463,
+                  2.674299716949463,
+                  2.674299716949463,
+                  2.674299716949463,
+                  -1.2170284986495972,
+                  -1.2170284986495972,
+                  -1.2170284986495972,
+                  -1.7223024368286133,
+                  -1.7223024368286133,
+                  2.141103744506836,
+                  2.141103744506836,
+                  2.141103744506836,
+                  2.141103744506836,
+                  2.141103744506836,
+                  5.286727428436279,
+                  5.286727428436279,
+                  3.5785636772028715
                 ],
                 [
-                  -1.0182700157165527,
-                  -1.0182700157165527,
-                  6.023596286773682,
-                  6.023596286773682,
-                  -0.7163484692573547,
-                  -0.7163484692573547,
-                  -0.7163484692573547,
-                  2.1443152666033116
+                  -0.3405049443244934,
+                  -0.3405049443244934,
+                  -0.3405049443244934,
+                  -0.3405049443244934,
+                  4.355671405792236,
+                  4.355671405792236,
+                  4.355671405792236,
+                  -0.609852135181427,
+                  -0.609852135181427,
+                  -0.29229244589805603,
+                  -0.29229244589805603,
+                  -0.29229244589805603,
+                  -0.29229244589805603,
+                  -0.29229244589805603,
+                  -0.6060948371887207,
+                  -0.6060948371887207,
+                  1.2180572753139882
                 ],
                 [
-                  -0.7163794040679932,
-                  -0.7163794040679932,
-                  -0.7128929495811462,
-                  -0.7128929495811462,
-                  4.290376663208008,
-                  4.290376663208008,
-                  4.290376663208008,
-                  1.4270564621601385
+                  -0.47071346640586853,
+                  -0.47071346640586853,
+                  -0.47071346640586853,
+                  -0.47071346640586853,
+                  -0.6249638199806213,
+                  -0.6249638199806213,
+                  -0.6249638199806213,
+                  6.108421802520752,
+                  6.108421802520752,
+                  -0.37818172574043274,
+                  -0.37818172574043274,
+                  -0.37818172574043274,
+                  -0.37818172574043274,
+                  -0.37818172574043274,
+                  -0.8814796805381775,
+                  -0.8814796805381775,
+                  1.881786075951228
                 ]
               ]
             }
@@ -201,7 +305,19 @@
     "extraSentences": [
       [
         "pt",
+        "Quem foi teu criador?"
+      ],
+      [
+        "pt",
+        "Qual sua localizacao?"
+      ],
+      [
+        "pt",
         "Bom dia"
+      ],
+      [
+        "pt",
+        "Como faco para fazer login?"
       ],
       [
         "pt",
@@ -227,19 +343,25 @@
     },
     "responses": {
       "pt": {
+        "DUVIDA": [
+          {
+            "answer": "Para fazer login voçe precisa, Criar uma conta no nosso site acessando a parte de meu Perfil e Registrar  "
+          },
+          {
+            "answer": "Sim estou otimo, e voce ?"
+          },
+          {
+            "answer": "Meu criador foi: Pedro Lucas "
+          }
+        ],
         "SAUDACAO": [
           {
             "answer": "Oi bom dia, sou o bot spuff Como posso ajudar?"
           }
         ],
-        "DUVIDA": [
-          {
-            "answer": "Sim estou otimo, e voce ?"
-          }
-        ],
         "LOCALIZACAO": [
           {
-            "answer": "rua dos carais nas curva do caraio"
+            "answer": "Atualmente nao temos uma sede fisica so digital"
           }
         ]
       }
