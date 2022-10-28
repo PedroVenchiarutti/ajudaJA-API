@@ -13,7 +13,7 @@ const userSchema = require("../validations/userValidation");
 Routes.post("/login", login.login);
 Routes.post("/register", bodyValidation(userSchema), users.add);
 
-Routes.get("/webchat", getMsgClient.getMsgClient("chat01#pedro"));
+Routes.post("/webchat/:id", getMsgClient.getMsgClient());
 
 // Routes.get("/webchat/room", (req, res) => {
 //   const room = getRoom();

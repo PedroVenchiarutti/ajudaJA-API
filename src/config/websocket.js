@@ -10,25 +10,7 @@ const manager = new NlpManager({ languages: ["pt"], forcptER: true });
 const messageBot_rsp = firebaseApp.firestore().collection("message_bot_resp");
 const messageBot = firebaseApp.firestore().collection("message_bot");
 
-// exports.getMessages = async () => {
-//   try {
-//     const snapshot = await messageBot.get();
-//     const data = snapshot.docs.map((doc) => doc.data());
-//     return console.log(data);
-//   } catch (error) {
-//     console.log(error);
-//   }
-// };
-
-async function getMessages() {
-  try {
-    const snapshot = await messageBot_rsp.get();
-    const data = snapshot.docs.map((doc) => doc.data());
-    return console.log(data);
-  } catch (error) {
-    console.log(error);
-  }
-}
+const dayReplace = dayFormat(new Date()).replace(/\//g, "_");
 
 // Pegando resposta do banco de dados
 async function getSpecifyMessage() {
@@ -45,18 +27,6 @@ async function getSpecifyMessage() {
   }
 }
 
-/// adicioando message do bot
-async function addMessage({ text, intent }) {
-  try {
-    const addData = await messageBot_rsp.add({
-      text: text,
-      intent: intent,
-    });
-  } catch (error) {
-    console.log(error);
-  }
-}
-
 // Iniciando o bot e adicionando as mensagens e TReinando o bot
 async function getMessageIA() {
   const snapshot = await messageBot_rsp.get();
@@ -68,37 +38,34 @@ async function getMessageIA() {
   return data;
 }
 
+// Adicioanndo a mensagem do usuario no banco de dados
 async function addMsgClient(collection, data) {
-  const msgClient = firebaseApp.firestore().collection(`CLIENT_MSG`);
-
-  let docs = `${collection}_${dayFormat(new Date())}`;
-
   try {
-    const addData = await msgClient.doc(docs).set({
-      user: "estes",
-    });
-
-    // const addData = await msgClient.add({
-    //   message: data.message,
-    //   room: data.room,
-    //   user: data.user,
-    //   username: data.username,
-    //   createdAt: timeFormat(new Date()),
-    //   date: dayFormat(new Date()),
-    // });
-    return addData;
+    const addData = await firebaseApp
+      .database()
+      .ref(data.username)
+      .child(dayReplace)
+      .push({
+        message: data.message,
+        room: data.room,
+        user: data.user,
+        username: data.username,
+        createdAt: timeFormat(new Date()),
+        date: dayFormat(new Date()),
+      })
+      .then(() => {
+        return startBot(data.message, data.username);
+      });
   } catch (error) {
     console.log(error);
   }
 }
 
 getSpecifyMessage();
-// addMessage({ text: "Bom dia", intent: "SAUDACAO" });
-// getMessages();
 getMessageIA();
 
 // Treine e salve o modelo.
-async function startBot(msg) {
+async function startBot(msg, username) {
   await manager.train();
   manager.save();
 
@@ -107,25 +74,50 @@ async function startBot(msg) {
   if (msg === " ") return;
 
   if (response.answer == null) {
-    return io.emit("message_bot", {
-      user: "bot",
-      message: "Desculpe, não entendi o que você quis dizer",
-      time: timeFormat(new Date()),
-    });
+    await firebaseApp
+      .database()
+      .ref(username)
+      .child(dayReplace)
+      .push({
+        user: "bot",
+        message: "Desculpe, não entendi o que você quis dizer",
+        time: timeFormat(new Date()),
+        date: dayFormat(new Date()),
+      })
+      .then(() => {
+        io.emit("message_bot", {
+          user: "bot",
+          message: "Desculpe, não entendi o que você quis dizer",
+          time: timeFormat(new Date()),
+        });
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   }
 
-  io.emit("message_bot", {
-    user: "bot",
-    message: response.answer,
-    time: timeFormat(new Date()),
-  });
+  await firebaseApp
+    .database()
+    .ref(username)
+    .child(dayReplace)
+    .push({
+      message: response.answer,
+      user: "bot",
+      createdAt: timeFormat(new Date()),
+      date: dayFormat(new Date()),
+    })
+    .then(() => {
+      io.emit("message_bot", {
+        user: "bot",
+        message: response.answer,
+        time: timeFormat(new Date()),
+      });
+    });
 }
 
 io.on("connection", (socket) => {
   socket.on("message", (data) => {
     // Salvar as mensagens
-
-    startBot(data.message);
 
     addMsgClient(data.room, data);
 

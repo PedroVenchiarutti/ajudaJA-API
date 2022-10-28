@@ -28,6 +28,7 @@
     "socket.io": "^4.5.2",
     "swagger-autogen": "^2.21.5",
     "swagger-ui-express": "^4.5.0",
+    "uuid": "^9.0.0",
     "yup": "^0.32.11"
   },
   "devDependencies": {

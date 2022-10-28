@@ -6,6 +6,7 @@ const Routes = express.Router();
 const users = require("../controller/userController");
 const validation = require("../middlewares/validationMiddleware");
 const recoveryYup = require("../validations/recovery");
+const ia = require("../helpers/setMessagesIA");
 
 // Recovery password
 Routes.post(
@@ -21,6 +22,12 @@ Routes.post(
   //   validation(recoveryYup),
   users.generateToken
 );
+
+// Cadastro de msg IA
+Routes.post("/private/msgIA", ia.addMessage);
+Routes.post("/private/respIA", ia.addResposta);
+Routes.post("/private/getCollection", ia.getMessages);
+Routes.post("/private/delete/msg", ia.deleteMessage);
 
 Routes.use("/public", publicRoutes);
 Routes.use("/private", tokenMiddleware, privateRoutes);
