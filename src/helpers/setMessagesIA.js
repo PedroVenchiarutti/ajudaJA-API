@@ -1,15 +1,26 @@
 const { firebaseApp } = require("../config/dbconnectionFirebase");
 const { v1: uuidv1, v4: uuidv4 } = require("uuid");
+const dotenv = require("dotenv").config();
 
 // Mensage que o vai treinar o bot para responder
-const messageBot_rsp = firebaseApp.firestore().collection("message_bot_resp");
+const messageBot_rsp = firebaseApp
+  .firestore()
+  .collection(process.env.BD_BOT_RES);
 
 // Mensagen que o bot vai responder
-const messageBot = firebaseApp.firestore().collection("message_bot");
+const messageBot = firebaseApp.firestore().collection(process.env.BD_BOT);
 
 // Adicionando mensagens para o bot responder
 exports.addMessage = async (req, res) => {
   const { text, intent } = req.body;
+
+  /*
+            #swagger.tags = ['Private / IA']
+            #swagger.security = [{
+            "bearerAuth": []
+          },
+        ]
+     */
 
   try {
     if (!text || !intent) {
@@ -30,6 +41,14 @@ exports.addMessage = async (req, res) => {
 
 // Pegando mensagens do bot
 exports.addResposta = async (req, res) => {
+  /*
+            #swagger.tags = ['Private / IA']
+            #swagger.security = [{
+            "bearerAuth": []
+          },
+        ]
+     */
+
   const { text, intent } = req.body;
 
   try {
@@ -51,8 +70,15 @@ exports.addResposta = async (req, res) => {
 
 // Listando mensagens do bot pela collection
 exports.getMessages = async (req, res) => {
+  /*
+            #swagger.tags = ['Private / IA']
+            #swagger.security = [{
+            "bearerAuth": []
+          },
+        ]
+     */
+
   const collection = req.body.collection;
-  console.log(collection);
   const messages = firebaseApp.firestore().collection(collection);
 
   try {
@@ -66,6 +92,14 @@ exports.getMessages = async (req, res) => {
 
 //Deletando mensagens do bot pela collection, e pelo uuid
 exports.deleteMessage = async (req, res) => {
+  /*
+            #swagger.tags = ['Private / IA']
+            #swagger.security = [{
+            "bearerAuth": []
+          },
+        ]
+     */
+
   const { id, collection } = req.body;
 
   const messages = firebaseApp.firestore().collection(collection);

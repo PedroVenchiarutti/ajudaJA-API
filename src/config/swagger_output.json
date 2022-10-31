@@ -101,6 +101,9 @@
     },
     "/private/msgIA": {
       "post": {
+        "tags": [
+          "Private / IA"
+        ],
         "description": "",
         "parameters": [
           {
@@ -137,11 +140,19 @@
           "500": {
             "description": "Internal Server Error"
           }
-        }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
       }
     },
     "/private/respIA": {
       "post": {
+        "tags": [
+          "Private / IA"
+        ],
         "description": "",
         "parameters": [
           {
@@ -178,11 +189,19 @@
           "500": {
             "description": "Internal Server Error"
           }
-        }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
       }
     },
     "/private/getCollection": {
       "post": {
+        "tags": [
+          "Private / IA"
+        ],
         "description": "",
         "parameters": [
           {
@@ -213,11 +232,19 @@
           "500": {
             "description": "Internal Server Error"
           }
-        }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
       }
     },
     "/private/delete/msg": {
       "post": {
+        "tags": [
+          "Private / IA"
+        ],
         "description": "",
         "parameters": [
           {
@@ -251,7 +278,12 @@
           "500": {
             "description": "Internal Server Error"
           }
-        }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
       }
     },
     "/public/login": {
@@ -518,6 +550,9 @@
               "properties": {
                 "password": {
                   "example": "any"
+                },
+                "newPassword": {
+                  "example": "any"
                 }
               }
             }
@@ -526,6 +561,9 @@
         "responses": {
           "200": {
             "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
           },
           "401": {
             "description": "Unauthorized"

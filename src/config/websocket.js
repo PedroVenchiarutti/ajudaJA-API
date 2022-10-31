@@ -116,12 +116,10 @@ function addMsgClient(collection, data) {
     });
 }
 
-// getSpecifyMessage();
-// getMessageIA();
-
 io.on("connection", (socket) => {
   getSpecifyMessage();
   getMessageIA();
+  console.log(socket.id);
 
   socket.on("message", (data) => {
     if (data.message === "Iniciar") {
@@ -151,9 +149,6 @@ io.on("connection", (socket) => {
         time: timeFormat(new Date()),
       });
       socket.disconnect();
-      return;
-    }
-    if (data.message === "Iniciar") {
       return;
     }
     addMsgClient(data.room, data);

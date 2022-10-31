@@ -203,23 +203,42 @@ exports.updatePassword = async (req, res, next) => {
   */
 
   try {
-    const { password } = req.body;
-    const hash = await crypto.getHash(password);
+    const { password, newPassword } = req.body;
 
-    const data = {
-      password: hash,
-    };
+    querys.select("users", req.params.id).then(async (result) => {
+      const hash = result[0].password;
+      const verify = await crypto.compareHash(password, hash);
 
-    querys
-      .updatePassword("users", data, req.params.id)
-      .then((result) => {
-        res.status(200).json({
-          message: "Senha atualizada com sucesso! ",
+      if (verify) {
+        const hashNew = await crypto.getHash(newPassword);
+        const compary = await crypto.compareHash(newPassword, hash);
+
+        if (compary) {
+          return res.status(400).json({
+            message: "A nova senha deve ser diferente da antiga! ",
+          });
+        }
+
+        const data = {
+          password: hashNew,
+        };
+
+        querys
+          .updatePassword("users", data, req.params.id)
+          .then((result) => {
+            res.status(200).json({
+              message: "Senha atualizada com sucesso! ",
+            });
+          })
+          .catch((err) => {
+            next(ApiError.internal(err.message));
+          });
+      } else {
+        res.status(400).json({
+          message: "Senha atual incorreta! ",
         });
-      })
-      .catch((err) => {
-        next(ApiError.internal(err.message));
-      });
+      }
+    });
   } catch (e) {
     next(ApiError.internal(e.message));
   }

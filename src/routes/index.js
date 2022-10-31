@@ -8,7 +8,7 @@ const validation = require("../middlewares/validationMiddleware");
 const recoveryYup = require("../validations/recovery");
 const ia = require("../helpers/setMessagesIA");
 
-// Recovery password
+// Recovery password quando esqueceu
 Routes.post(
   "/private/recovery",
   validation(recoveryYup),
@@ -16,7 +16,7 @@ Routes.post(
   users.passwordRecovery
 );
 
-// Gerar o token para o password
+// Gerar o token para o password quando esqueceu
 Routes.post(
   "/public/recovery",
   //   validation(recoveryYup),

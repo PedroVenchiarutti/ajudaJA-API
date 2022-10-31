@@ -3,18 +3,18 @@ const users = require("../controller/userController");
 const client = require("../controller/clientController");
 // const webChat = require("../controller/webChat");
 const Routes = express.Router();
-
-
-// Rotas para chat do cliente
-// Routes.get("/chat", webChat.webChat);
-
-
+const validation = require("../middlewares/validationMiddleware");
+const passwordToExchange = require("../validations/passwordValidation");
 
 // Rotas de usuarios
 Routes.get("/users", users.getAll);
 Routes.get("/users/:id", users.getById);
 Routes.put("/update/users/:id", users.updateAll);
-Routes.patch("/update/users/password/:id", users.updatePassword);
+Routes.patch(
+  "/update/users/password/:id",
+  validation(passwordToExchange),
+  users.updatePassword
+);
 Routes.delete("/delete/users/:id", users.delete);
 
 // ROTAS DE  CLIENTES

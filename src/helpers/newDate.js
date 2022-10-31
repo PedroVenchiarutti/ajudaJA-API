@@ -1,7 +1,7 @@
 const moment = require("moment");
 
 const timeFormat = (date) => {
-  const time = moment(date).format("HH:mm:ss");
+  const time = moment(date).format("HH:mm");
   return time;
 };
 
