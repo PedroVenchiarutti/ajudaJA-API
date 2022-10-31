@@ -148,7 +148,7 @@ class Querys {
   // filtrando os dados do cliente apartir do id do usuario
   static updateClient(table, params, id) {
     return new Promise((resolve, reject) => {
-      let query = `UPDATE ${table} SET birthday = $1, emergencynumber = $2, helth_insurance = $3, gender =$4, name = $5, lastname = $6, avatar = $7 `;
+      let query = `UPDATE ${table} SET emergencynumber = $1, helth_insurance = $2, avatar = $3 `;
 
       // Pegando os valores do objeto params e passando para um array
       let values = Object.values(params);

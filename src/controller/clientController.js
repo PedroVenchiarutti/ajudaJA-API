@@ -1,6 +1,7 @@
 const express = require("express");
 const querys = require("../helpers/querys");
 const ApiError = require("../error/apiError");
+const newDate = require("../helpers/newDate");
 
 // Trazendo o Dados do client que esta vinculado com o user por chave estrangeira
 exports.getAllKeys = async (req, res, next) => {
@@ -18,15 +19,10 @@ exports.getAllKeys = async (req, res, next) => {
       .selectKey("users", req.params.id)
       .then((result) => {
         // convertendo a data para padrao brazileiro
-        const date = result.birthday
-          .toISOString()
-          .split("T")[0]
-          .split("-")
-          .reverse()
-          .join("/");
+        const date = result.birthday;
         const data = {
           ...result,
-          birthday: date,
+          birthday: newDate.dayFormat(date),
         };
 
         res.status(200).json({
@@ -66,8 +62,11 @@ exports.updateClient = async (req, res, next) => {
         ]
      */
 
-  const { birthday, emergencynumber, helth_insurance, gender, name, lastname } =
-    req.body;
+  const { emergencynumber, helth_insurance } = req.body;
+
+  if (!emergencynumber || !helth_insurance) {
+    next(ApiError.badRequest("Dados invalidos"));
+  }
 
   try {
     querys

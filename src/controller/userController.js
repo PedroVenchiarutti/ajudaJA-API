@@ -51,7 +51,8 @@ exports.getById = async (req, res, next) => {
 
   try {
     querys.select("users", id).then((result) => {
-      res.status(200).json(result);
+      console.log(result);
+      const res = {};
     });
   } catch (e) {
     next(ApiError.internal(e.message));
