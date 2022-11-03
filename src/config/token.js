@@ -14,6 +14,21 @@ exports.generateToken = async (userId, timer = "4h") => {
   );
 };
 
+// // Refresh Token
+exports.generateRefreshToken = async (userId, expiresIn) => {
+  console.log(expiresIn);
+  return jwt.sign(
+    {
+      id: userId,
+    },
+    process.env.APP_SECRET_REFRESH_TOKEN,
+    {
+      // tempo de expiração do token
+      expiresIn: expiresIn,
+    }
+  );
+};
+
 // Gerando uma funcao para validar o token
 exports.decodeToken = async (token) => {
   const data = await jwt.verify(token, process.env.TOKEN_SECRET);

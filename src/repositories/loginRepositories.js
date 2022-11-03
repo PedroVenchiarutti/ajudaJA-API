@@ -2,7 +2,9 @@ const db = require("../config/dbconnection");
 const crypto = require("../config/bcrypt");
 const Error = require("../error/apiError");
 const token = require("../config/token");
-const { query } = require("express");
+const auth = require("../config/auth");
+const query = require("../helpers/querys");
+const dayjs = require("dayjs");
 const { verifyEmail } = require("../helpers/querys");
 
 // Criando uma função que retorna a query recebendo a tabela por parâmetro
@@ -35,15 +37,42 @@ const login = async (email, password) => {
       .then((user) => {
         crypto.compareHash(password, user.password).then(async (result) => {
           if (result) {
+            const {
+              secret,
+              expiresIn,
+              secretRefreshToken,
+              expiresInRefreshToken,
+              expiresRefreshTokenDays,
+            } = auth;
+
             const newToken = await token.generateToken(user.id);
-            console.log(newToken);
-            const tokenData = {
-              id: user.id,
-              email: user.email,
-              username: user.username,
-              token: newToken,
-            };
-            resolve(tokenData);
+
+            const newRefreshToken = await token.generateRefreshToken(
+              user.id,
+              expiresIn
+            );
+
+            const refreshTokenExpiresDay = dayjs()
+              .add(expiresRefreshTokenDays, "days")
+              .toDate();
+
+            query
+              .insert("refreshtoken", {
+                userid: user.id,
+                token: newRefreshToken,
+                expiredtime: refreshTokenExpiresDay,
+              })
+              .then(() => {
+                const tokenData = {
+                  id: user.id,
+                  email: user.email,
+                  username: user.username,
+                  token: newToken,
+                  refreshToken: newRefreshToken,
+                };
+                resolve(tokenData);
+              })
+              .catch((error) => reject(error));
           } else {
             reject({ message: "Senha incorreta" });
           }

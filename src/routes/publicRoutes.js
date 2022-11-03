@@ -16,9 +16,5 @@ Routes.post("/register", bodyValidation(userSchema), users.add);
 // Crashando a aplicacao resolver
 Routes.post("/webchat/:id", getMsgClient.getMsgClient());
 
-// Routes.get("/webchat/room", (req, res) => {
-//   const room = getRoom();
-//   console.log(room);
-// });
 
 module.exports = Routes;

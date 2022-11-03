@@ -7,6 +7,7 @@ const users = require("../controller/userController");
 const validation = require("../middlewares/validationMiddleware");
 const recoveryYup = require("../validations/recovery");
 const ia = require("../helpers/setMessagesIA");
+const RefreshTokenController = require("../controller/refreshToken");
 
 // Recovery password quando esqueceu
 Routes.post(
@@ -22,6 +23,8 @@ Routes.post(
   //   validation(recoveryYup),
   users.generateToken
 );
+
+Routes.post("/public/refresh-token", new RefreshTokenController().handle);
 
 // Cadastro de msg IA
 // Cadastrando a msg para o bot

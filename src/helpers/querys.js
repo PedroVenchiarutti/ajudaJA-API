@@ -60,8 +60,6 @@ class Querys {
         ", "
       )}) RETURNING *`;
 
-      console.log(query);
-
       // Executando a query no banco de dados e retornando uma promessa
       db.exec(query, values)
         .then((result) => {
@@ -168,6 +166,32 @@ class Querys {
       `;
 
       db.exec(query, [key])
+        .then((result) => {
+          resolve(result);
+        })
+        .catch((err) => reject(err));
+    });
+  }
+
+  // Procurando no banco o refresh_token por id e token
+  static selectRefreshToken(table, params, id) {
+    return new Promise((resolve, reject) => {
+      let query = `select * from ${table} where userid = $1 and token = $2`;
+
+      db.exec(query, [id, params])
+        .then((result) => {
+          resolve(result);
+        })
+        .catch((err) => reject(err));
+    });
+  }
+
+  // deletando RefreshToken
+  static deleteRefreshToken(table, id) {
+    return new Promise((resolve, reject) => {
+      let query = `delete from ${table} where userid = $1`;
+
+      db.exec(query, [id])
         .then((result) => {
           resolve(result);
         })
