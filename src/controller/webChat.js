@@ -2,6 +2,14 @@ const { firebaseApp } = require("../config/dbconnectionFirebase");
 const { timeFormat, dayFormat } = require("../helpers/newDate");
 
 exports.getMsgClient = () => async (req, res) => {
+  /*
+            #swagger.tags = ['Public / WebChat']
+            #swagger.security = [{
+            "bearerAuth": []
+          },
+        ]
+     */
+
   const section = req.params.id;
 
   let date = dayFormat(new Date()).replace(/\//g, "_");

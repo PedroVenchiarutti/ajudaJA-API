@@ -1,7 +1,7 @@
 const jwt = require("jsonwebtoken");
 
 // Gerando uma funcao para gerar o token
-exports.generateToken = async (userId, timer = "4h") => {
+exports.generateToken = async (userId, timer = "30s") => {
   return jwt.sign(
     {
       id: userId,
@@ -16,7 +16,6 @@ exports.generateToken = async (userId, timer = "4h") => {
 
 // // Refresh Token
 exports.generateRefreshToken = async (userId, expiresIn) => {
-  console.log(expiresIn);
   return jwt.sign(
     {
       id: userId,

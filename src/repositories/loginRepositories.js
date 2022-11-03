@@ -37,13 +37,7 @@ const login = async (email, password) => {
       .then((user) => {
         crypto.compareHash(password, user.password).then(async (result) => {
           if (result) {
-            const {
-              secret,
-              expiresIn,
-              secretRefreshToken,
-              expiresInRefreshToken,
-              expiresRefreshTokenDays,
-            } = auth;
+            const { expiresIn, expiresRefreshTokenDays } = auth;
 
             const newToken = await token.generateToken(user.id);
 

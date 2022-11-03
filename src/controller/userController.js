@@ -226,7 +226,7 @@ exports.updatePassword = async (req, res, next) => {
         querys
           .updatePassword("users", data, req.params.id)
           .then((result) => {
-            res.status(200).json({
+           res.status(200).json({
               message: "Senha atualizada com sucesso! ",
             });
           })

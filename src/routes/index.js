@@ -24,7 +24,7 @@ Routes.post(
   users.generateToken
 );
 
-Routes.post("/public/refresh-token", new RefreshTokenController().handle);
+Routes.post("/public/refresh-token", RefreshTokenController.handle);
 
 // Cadastro de msg IA
 // Cadastrando a msg para o bot

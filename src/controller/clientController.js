@@ -36,7 +36,7 @@ exports.getAllKeys = async (req, res, next) => {
             idinfo: result.idinfo,
             birthday: data.birthday,
             emergencynumber: result.emergencynumber,
-            helth_insuranceo: result.helth_insurance,
+            helth_insurance: result.helth_insurance,
             gender: result.gender,
             name: result.name,
             lastname: result.lastname,
@@ -89,7 +89,7 @@ exports.updateClient = async (req, res, next) => {
 // Adicionando alergias ao cliente
 exports.addAllergy = async (req, res, next) => {
   /*
-            #swagger.tags = ['Private / Client']
+            #swagger.tags = ['Public / Client']
             #swagger.security = [{
             "bearerAuth": []
           },
@@ -185,6 +185,53 @@ exports.deleteAllergy = async (req, res, next) => {
       .catch((err) => {
         next(ApiError.internal(err.message));
       });
+  } catch (e) {
+    next(ApiError.internal(e.message));
+  }
+};
+
+exports.getPublicDate = async (req, res, next) => {
+  /*
+            #swagger.tags = ['Public / Client']
+            #swagger.security = [{
+            "bearerAuth": []
+          },
+        ]
+     */
+  const { id } = req.params;
+
+  try {
+    querys.selectPublicData(id).then((result) => {
+      const data = [];
+
+      // buscando pelo user_id
+
+      const map = result.map((item) => {
+        const description = item.description;
+        data.push({
+          id: item.idallergy,
+          description: description,
+        });
+        return data;
+      });
+
+      if (result.length == 0) {
+        return next(ApiError.badRequest("Cliente não alergia cadastrada"));
+      }
+
+      res.status(200).json({
+        message: "Dados publicos do cliente",
+        client: {
+          name: result[0]?.name,
+          lastname: result[0]?.lastname,
+          emergencynumber: result[0]?.emergencynumber,
+          helth_insurance: result[0]?.helth_insurance,
+          birthday: result[0]?.birthday,
+          avatar: result[0]?.avatar,
+          allergy: data || [],
+        },
+      });
+    });
   } catch (e) {
     next(ApiError.internal(e.message));
   }

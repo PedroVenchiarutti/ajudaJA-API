@@ -198,6 +198,20 @@ class Querys {
         .catch((err) => reject(err));
     });
   }
+
+  // pegandos os dados do client so se tiver cadastrado alguma alergia
+  static selectPublicData(id) {
+    return new Promise((resolve, reject) => {
+      let query = `select ui.name, ui.birthday, ui.emergencynumber, ui.helth_insurance, ui.avatar, ui.lastname, iu.description, iu.idallergy from users_informations ui 
+      inner join ill_allergy iu on ui.idinfo = iu.info_id where ui.user_id = $1`;
+
+      db.exec(query, [id])
+        .then((result) => {
+          resolve(result);
+        })
+        .catch((err) => reject(err));
+    });
+  }
 }
 
 // Exportando a classe
