@@ -20,6 +20,7 @@ exports.exec = (query, params = []) => {
 
     client.connect();
 
+
     client
       .query(query, params)
       .then((results) => {

@@ -212,6 +212,26 @@ class Querys {
         .catch((err) => reject(err));
     });
   }
+
+  static insertMulti(table, params) {
+    return new Promise((resolve, reject) => {
+      let query = `insert into ${table} (info_id, description) values (returning *`;
+
+      const data = params.map(async (item) => {
+        return await db.exec(query, [item.info_id, item.description]);
+      });
+
+      Promise.all(data)
+        .then((result) => resolve(result))
+        .catch((err) => reject(err));
+
+      // db.exec(query, params)
+      //   .then((result) => {
+      //     resolve(result);
+      //   })
+      //   .catch((err) => reject(err));
+    });
+  }
 }
 
 // Exportando a classe

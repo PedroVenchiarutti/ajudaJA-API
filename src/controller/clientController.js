@@ -107,10 +107,13 @@ exports.addAllergy = async (req, res, next) => {
         }
 
      */
+  const body = req.body;
+
+  
 
   try {
     querys
-      .insert("ill_allergy", req.body, req.params.id)
+      .insert("ill_allergy", body)
       .then((result) => {
         res.status(200).json({
           message: "Alergia cadastrada com sucesso",
@@ -120,6 +123,18 @@ exports.addAllergy = async (req, res, next) => {
       .catch((err) => {
         next(ApiError.internal(err.message));
       });
+
+    // querys
+    //   .insertMulti("ill_allergy", body)
+    //   .then((result) => {
+    //     res.status(200).json({
+    //       message: "Alergia cadastrada com sucesso",
+    //       allergyClient: result,
+    //     });
+    //   })
+    //   .catch((err) => {
+    //     next(ApiError.internal(err.message));
+    //   });
   } catch (e) {
     next(ApiError.internal(e.message));
   }
@@ -216,7 +231,7 @@ exports.getPublicDate = async (req, res, next) => {
       });
 
       if (result.length == 0) {
-        return next(ApiError.badRequest("Cliente não alergia cadastrada"));
+        return next(ApiError.badRequest("Cliente nao tem alergia cadastrada"));
       }
 
       res.status(200).json({

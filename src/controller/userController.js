@@ -52,7 +52,7 @@ exports.getById = async (req, res, next) => {
   try {
     querys.select("users", id).then((result) => {
       console.log(result);
-      const res = {};
+      res.status(200).json(result);
     });
   } catch (e) {
     next(ApiError.internal(e.message));
@@ -226,7 +226,7 @@ exports.updatePassword = async (req, res, next) => {
         querys
           .updatePassword("users", data, req.params.id)
           .then((result) => {
-           res.status(200).json({
+            res.status(200).json({
               message: "Senha atualizada com sucesso! ",
             });
           })
