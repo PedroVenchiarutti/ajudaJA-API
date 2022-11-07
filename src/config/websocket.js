@@ -38,56 +38,57 @@ async function getMessageIA() {
   return data;
 }
 // Treine e salve o modelo.
-async function startBot(msg, username) {
-  if (msg === " ") return;
+async function startBot(data) {
+  if (data.message === " ") return;
   await manager.train();
   manager.save();
 
-  try {
-    const response = await manager.process("pt", msg.toLowerCase());
-    console.log(response);
+  const notFoundMessage = "Desculpe, não entendi o que você quis dizer.";
 
+  try {
+    const response = await manager.process("pt", data.message.toLowerCase());
+    console.log(response);
+    // se o bot nao encontrar a mensagem ele retorna a mensagem de not
     if (response.answer == null) {
-      firebaseApp
+      await firebaseApp
         .database()
-        .ref(username)
+        .ref(data.room)
         .child(dayReplace)
         .push({
+          message: notFoundMessage,
+          room: data.room,
           user: "bot",
-          message: "Desculpe, não entendi o que você quis dizer",
+          username: "bot",
           createdAt: timeFormat(new Date()),
           date: dayFormat(new Date()),
-        })
-        .then(() => {
-          io.emit("message_bot", {
-            user: "bot",
-            message: "Desculpe, não entendi o que você quis dizer",
-            createdAt: timeFormat(new Date()),
-            date: dayFormat(new Date()),
-          });
-        })
-        .catch((error) => {
-          console.log(error.message);
         });
+
+      io.emit("message_bot", {
+        user: "bot",
+        message: notFoundMessage,
+        createdAt: timeFormat(new Date()),
+        date: dayFormat(new Date()),
+      });
     } else {
-      firebaseApp
+      await firebaseApp
         .database()
-        .ref(username)
+        .ref(data.room)
         .child(dayReplace)
         .push({
           message: response.answer,
+          room: data.room,
           user: "bot",
+          username: "bot",
           createdAt: timeFormat(new Date()),
           date: dayFormat(new Date()),
-        })
-        .then(() => {
-          io.emit("message_bot", {
-            user: "bot",
-            message: response.answer,
-            time: timeFormat(new Date()),
-          });
-          return;
         });
+
+      io.emit("message_bot", {
+        user: "bot",
+        message: response.answer,
+        time: timeFormat(new Date()),
+      });
+      return;
     }
   } catch (error) {
     console.log(error.message);
@@ -96,9 +97,10 @@ async function startBot(msg, username) {
 
 // Adicioanndo a mensagem do usuario no banco de dados
 function addMsgClient(collection, data) {
+  console.log(data);
   firebaseApp
     .database()
-    .ref(data.username)
+    .ref(data.room)
     .child(dayReplace)
     .push({
       message: data.message,
@@ -109,7 +111,7 @@ function addMsgClient(collection, data) {
       date: dayFormat(new Date()),
     })
     .then(() => {
-      return startBot(data.message, data.username);
+      return startBot(data);
     })
     .catch((error) => {
       console.log(error.message);
