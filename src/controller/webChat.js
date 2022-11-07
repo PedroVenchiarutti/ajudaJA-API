@@ -11,6 +11,7 @@ exports.getMsgClient = () => async (req, res) => {
      */
 
   const section = req.params.id;
+  console.log(section);
 
   let date = dayFormat(new Date()).replace(/\//g, "_");
 
@@ -23,8 +24,8 @@ exports.getMsgClient = () => async (req, res) => {
         const data = childSnapshot.val();
         dataNew.push(data);
       });
+      return res.status(200).json(dataNew);
     });
-    return res.status(200).json(dataNew);
   } catch (error) {
     console.log(error);
   }

@@ -40,6 +40,7 @@ async function getMessageIA() {
 // Treine e salve o modelo.
 async function startBot(data) {
   if (data.message === " ") return;
+  if (data.initial) return;
   await manager.train();
   manager.save();
 
@@ -97,7 +98,6 @@ async function startBot(data) {
 
 // Adicioanndo a mensagem do usuario no banco de dados
 function addMsgClient(collection, data) {
-  console.log(data);
   firebaseApp
     .database()
     .ref(data.room)
@@ -121,30 +121,19 @@ function addMsgClient(collection, data) {
 io.on("connection", (socket) => {
   getSpecifyMessage();
   getMessageIA();
-  console.log(socket.id);
 
   socket.on("message", (data) => {
-    if (data.message === "Iniciar") {
-      // Salvar as mensagens
-      socket.emit("message_new", {
-        user: "bot",
-        message: "Olá, como posso te ajudar?",
-        createdAt: timeFormat(new Date()),
-        date: dayFormat(new Date()),
-      });
-    } else {
-      const msgClient = {
-        message: data.message,
-        room: data.room,
-        user: data.user,
-        username: data.username,
-        time: timeFormat(new Date()),
-        date: dayFormat(new Date()),
-      };
-      socket.emit("message_new", msgClient);
-    }
+    const msgClient = {
+      message: data.message,
+      room: data.room,
+      user: data.user,
+      username: data.username,
+      time: timeFormat(new Date()),
+      date: dayFormat(new Date()),
+    };
+    socket.emit("message_new", msgClient);
 
-    if (data.message === "Sair") {
+    if (data.message === "sair") {
       socket.emit("message_new", {
         user: "bot",
         message: "Até mais, espero ter ajudado",
