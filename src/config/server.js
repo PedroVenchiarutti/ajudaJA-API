@@ -5,6 +5,7 @@ const bodyParser = require("body-parser");
 const allowCors = require("./cors");
 const routes = require("../routes/index");
 const app = express();
+const path = require("path");
 const apiErrorHandler = require("../error/errorHandler");
 const { Server } = require("socket.io");
 const server = require("http").createServer(app);
@@ -17,8 +18,8 @@ const io = new Server(server, {
 });
 
 // Swagger
-const swaggerUI = require("swagger-ui-express");
-const swaggerFile = require("./swagger_output.json");
+// const swaggerUI = require("swagger-ui-express");
+// const swaggerFile = require("./swagger_output.json");
 
 app.use(bodyParser.json());
 app.use(
@@ -28,6 +29,9 @@ app.use(
 );
 app.use(allowCors);
 app.use(cors());
+// app.use(express.static(__dirname + "/public"));
+
+app.use(express.static("public" + "/swagger-ui.css"));
 
 //EndPoint
 app.use("/api", routes);
@@ -38,21 +42,11 @@ const swaggerUi = require("swagger-ui-express");
 const swaggerDocument = require("./swagger_output");
 
 const options = {
-  customCssUrl: "/public/swagger-ui.css",
+  customSiteTitle: "The Words That I Know API - Swagger",
 };
 
-app.use("/public/swagger-ui.css", express.static("public/swagger-ui.css"));
-
-app.use(
-  "/docs",
-  function (req, res, next) {
-    swaggerDocument.host = req.get("host");
-    req.swaggerDoc = swaggerDocument;
-    next();
-  },
-  swaggerUi.serve,
-  swaggerUi.setup(swaggerDocument, options)
-);
+app.use("/docs", swaggerUi.serve);
+app.get("/docs", swaggerUi.setup(swaggerDocument, options));
 
 // app.use("/public/docs", express.static(path.join(SRC_FOLDER, "public")));
 
