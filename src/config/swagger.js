@@ -17,7 +17,7 @@ const doc = {
   schemes: ["https"],
   consumes: ["application/json"],
   securytiDefinitions: {
-    bearerAuth: {
+    bearerAuth: { 
       type: "http",
       scheme: "bearer",
       bearerFormat: "JWT",

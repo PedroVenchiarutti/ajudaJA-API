@@ -9,7 +9,6 @@ const apiErrorHandler = require("../error/errorHandler");
 const { Server } = require("socket.io");
 const server = require("http").createServer(app);
 
-
 const io = new Server(server, {
   cors: {
     origin: "http://localhost:5173",
@@ -30,14 +29,34 @@ app.use(
 app.use(allowCors);
 app.use(cors());
 
-
-
 //EndPoint
 app.use("/api", routes);
 // Middleware de tratamento de erros
 app.use(apiErrorHandler);
 
+const swaggerUi = require("swagger-ui-express");
+const swaggerDocument = require("./swagger_output");
+
+const options = {
+  customCssUrl: "/public/swagger-ui.css",
+};
+
+app.use("/public/swagger-ui.css", express.static("public/css"));
+
+app.use(
+  "/docs",
+  function (req, res, next) {
+    swaggerDocument.host = req.get("host");
+    req.swaggerDoc = swaggerDocument;
+    next();
+  },
+  swaggerUi.serve,
+  swaggerUi.setup(swaggerDocument, options)
+);
+
+// app.use("/public/docs", express.static(path.join(SRC_FOLDER, "public")));
+
 // NAO ENVIAR O SWAGGER NA PRODUCAO
-app.use("/docs", swaggerUI.serve, swaggerUI.setup(swaggerFile));
+// app.use("/docs", swaggerUI.serve, swaggerUI.setup(swaggerFile));
 
 module.exports = { server, io };
