@@ -34,7 +34,7 @@ app.use(cors());
 // funciono local
 // app.use(express.static("public"));
 app.use(express.static(__dirname));
-app.use(express.static("public"));
+app.use(express.static("src"));
 
 //EndPoint
 app.use("/api", routes);
@@ -42,22 +42,22 @@ app.use("/api", routes);
 app.use(apiErrorHandler);
 
 const options = {
-  customCssUrl: "./public/swaggerI.css",
+  customCssUrl: "/public/swagger-ui.css",
   customSiteTitle: "API AjudaJA swagger",
 };
 
-app.use(
-  "/docs",
-  function (req, res, next) {
-    swaggerDocument.host = req.get("host");
-    req.swaggerDoc = swaggerDocument;
-    next();
-  },
-  swaggerUi.serveFiles(swaggerDocument, options),
-  swaggerUi.setup()
-);
+// app.use(
+//   "/docs",
+//   function (req, res, next) {
+//     swaggerDocument.host = req.get("host");
+//     req.swaggerDoc = swaggerDocument;
+//     next();
+//   },
+//   swaggerUi.serveFiles(swaggerDocument, options),
+//   swaggerUi.setup()
+// );
 
-// app.use("/docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument, options));
+app.use("/docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument, options));
 
 // NAO ENVIAR O SWAGGER NA PRODUCAO
 // app.use("/docs", swaggerUI.serve, swaggerUI.setup(swaggerFile));
