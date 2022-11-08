@@ -46,7 +46,18 @@ const options = {
   customSiteTitle: "API AjudaJA swagger",
 };
 
-app.use("/docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument, options));
+app.use(
+  "/docs",
+  function (req, res, next) {
+    swaggerDocument.host = req.get("host");
+    req.swaggerDoc = swaggerDocument;
+    next();
+  },
+  swaggerUi.serveFiles(swaggerDocument, options),
+  swaggerUi.setup()
+);
+
+// app.use("/docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument, options));
 
 // NAO ENVIAR O SWAGGER NA PRODUCAO
 // app.use("/docs", swaggerUI.serve, swaggerUI.setup(swaggerFile));
