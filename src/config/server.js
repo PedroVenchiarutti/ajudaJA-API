@@ -35,7 +35,7 @@ app.use(cors());
 // app.use(express.static("public"));
 // app.use(express.static(__dirname));
 
-app.use("/public", express.static("public"));
+app.use(express.static("public"));
 
 //EndPoint
 app.use("/api", routes);
@@ -43,7 +43,7 @@ app.use("/api", routes);
 app.use(apiErrorHandler);
 
 const options = {
-  customCssUrl: "/swagger-ui.css",
+  customCssUrl: "/swaggerI.css",
   customSiteTitle: "API AjudaJA swagger",
 };
 
