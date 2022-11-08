@@ -1,4 +1,5 @@
 const express = require("express");
+const path = require("path");
 const cors = require("cors");
 const dotenv = require("dotenv").config();
 const bodyParser = require("body-parser");
@@ -33,8 +34,14 @@ app.use(cors());
 
 // funciono local
 // app.use(express.static("public"));
-app.use(express.static(__dirname));
-app.use(express.static("src"));
+// app.use(express.static(__dirname));
+
+const ROOT_FOLDER = path.join(__dirname, "..");
+const SRC_FOLDER = path.join(ROOT_FOLDER, "src");
+
+console.log(ROOT_FOLDER);
+
+app.use("/public", express.static(path.join(SRC_FOLDER, "public")));
 
 //EndPoint
 app.use("/api", routes);
@@ -46,18 +53,10 @@ const options = {
   customSiteTitle: "API AjudaJA swagger",
 };
 
-// app.use(
-//   "/docs",
-//   function (req, res, next) {
-//     swaggerDocument.host = req.get("host");
-//     req.swaggerDoc = swaggerDocument;
-//     next();
-//   },
-//   swaggerUi.serveFiles(swaggerDocument, options),
-//   swaggerUi.setup()
-// );
+app.use("/", swaggerUi.serve);
+app.get("/", swaggerUi.setup(swaggerDocument, options));
 
-app.use("/docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument, options));
+// app.use("/docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument, options));
 
 // NAO ENVIAR O SWAGGER NA PRODUCAO
 // app.use("/docs", swaggerUI.serve, swaggerUI.setup(swaggerFile));
