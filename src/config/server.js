@@ -37,11 +37,7 @@ app.use(cors());
 // app.use(express.static(__dirname));
 
 const ROOT_FOLDER = path.join(__dirname, "..");
-const SRC_FOLDER = path.join(ROOT_FOLDER, "src");
-
-console.log(ROOT_FOLDER);
-
-app.use("/public", express.static(path.join(SRC_FOLDER, "public")));
+app.use(express.static(path.join(ROOT_FOLDER, "public")));
 
 //EndPoint
 app.use("/api", routes);
@@ -49,14 +45,14 @@ app.use("/api", routes);
 app.use(apiErrorHandler);
 
 const options = {
-  customCssUrl: "/public/swagger-ui.css",
+  customCssUrl: "/swagger-ui.css",
   customSiteTitle: "API AjudaJA swagger",
 };
 
-app.use("/", swaggerUi.serve);
-app.get("/", swaggerUi.setup(swaggerDocument, options));
+// app.use("/docs", swaggerUi.serve);
+// app.get("/docs", swaggerUi.setup(swaggerDocument, options));
 
-// app.use("/docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument, options));
+app.use("/docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument, options));
 
 // NAO ENVIAR O SWAGGER NA PRODUCAO
 // app.use("/docs", swaggerUI.serve, swaggerUI.setup(swaggerFile));
