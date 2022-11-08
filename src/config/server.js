@@ -41,7 +41,7 @@ const options = {
   customCssUrl: "/public/swagger-ui.css",
 };
 
-app.use("/public/swagger-ui.css", express.static("public/css"));
+app.use("/public/swagger-ui.css", express.static("public/swagger-ui.css"));
 
 app.use(
   "/docs",
