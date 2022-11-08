@@ -9,20 +9,14 @@
       "email": "pedro.lucas.clear@gmail.com"
     }
   },
-  "host": "ajudajaapi.herokuapp.com/api",
+  "host": "ajuda-ja-api.vercel.app/api",
   "basePath": "/",
-  "schemes": [
-    "https"
-  ],
-  "consumes": [
-    "application/json"
-  ],
+  "schemes": ["https"],
+  "consumes": ["application/json"],
   "paths": {
     "/private/recovery": {
       "post": {
-        "tags": [
-          "Private / Client"
-        ],
+        "tags": ["Private / Client"],
         "description": "",
         "parameters": [
           {
@@ -47,10 +41,7 @@
                   "example": "123456"
                 }
               },
-              "required": [
-                "password",
-                "passwordConfirmation"
-              ]
+              "required": ["password", "passwordConfirmation"]
             }
           }
         ],
@@ -71,9 +62,7 @@
     },
     "/public/recovery": {
       "post": {
-        "tags": [
-          "Public"
-        ],
+        "tags": ["Public"],
         "description": "",
         "parameters": [
           {
@@ -101,9 +90,7 @@
     },
     "/public/refresh-token": {
       "post": {
-        "tags": [
-          "Public / Refresh Token"
-        ],
+        "tags": ["Public / Refresh Token"],
         "description": "",
         "parameters": [
           {
@@ -133,9 +120,7 @@
     },
     "/private/msgIA": {
       "post": {
-        "tags": [
-          "Private / IA"
-        ],
+        "tags": ["Private / IA"],
         "description": "",
         "parameters": [
           {
@@ -182,9 +167,7 @@
     },
     "/private/respIA": {
       "post": {
-        "tags": [
-          "Private / IA"
-        ],
+        "tags": ["Private / IA"],
         "description": "",
         "parameters": [
           {
@@ -231,9 +214,7 @@
     },
     "/private/getCollection": {
       "post": {
-        "tags": [
-          "Private / IA"
-        ],
+        "tags": ["Private / IA"],
         "description": "",
         "parameters": [
           {
@@ -274,9 +255,7 @@
     },
     "/private/delete/msg": {
       "post": {
-        "tags": [
-          "Private / IA"
-        ],
+        "tags": ["Private / IA"],
         "description": "",
         "parameters": [
           {
@@ -320,9 +299,7 @@
     },
     "/public/login": {
       "post": {
-        "tags": [
-          "Public"
-        ],
+        "tags": ["Public"],
         "description": "",
         "parameters": [
           {
@@ -350,9 +327,7 @@
     },
     "/public/register": {
       "post": {
-        "tags": [
-          "Public"
-        ],
+        "tags": ["Public"],
         "description": "",
         "parameters": [
           {
@@ -436,9 +411,7 @@
     },
     "/public/client/allergy/add": {
       "post": {
-        "tags": [
-          "Public / Client"
-        ],
+        "tags": ["Public / Client"],
         "description": "",
         "parameters": [
           {
@@ -462,11 +435,7 @@
                   "example": "Alergia a poeira"
                 }
               },
-              "required": [
-                "info_id",
-                "name_illness",
-                "description"
-              ]
+              "required": ["info_id", "name_illness", "description"]
             }
           }
         ],
@@ -484,9 +453,7 @@
     },
     "/public/client/{id}": {
       "get": {
-        "tags": [
-          "Public / Client"
-        ],
+        "tags": ["Public / Client"],
         "description": "",
         "parameters": [
           {
@@ -510,9 +477,7 @@
     },
     "/public/webchat/{id}": {
       "post": {
-        "tags": [
-          "Public / WebChat"
-        ],
+        "tags": ["Public / WebChat"],
         "description": "",
         "parameters": [
           {
@@ -532,9 +497,7 @@
     },
     "/private/users": {
       "get": {
-        "tags": [
-          "Private / User"
-        ],
+        "tags": ["Private / User"],
         "description": "",
         "parameters": [
           {
@@ -560,9 +523,7 @@
     },
     "/private/users/{id}": {
       "get": {
-        "tags": [
-          "Private / User"
-        ],
+        "tags": ["Private / User"],
         "description": "",
         "parameters": [
           {
@@ -594,9 +555,7 @@
     },
     "/private/update/users/{id}": {
       "put": {
-        "tags": [
-          "Private / User"
-        ],
+        "tags": ["Private / User"],
         "description": "",
         "parameters": [
           {
@@ -643,9 +602,7 @@
     },
     "/private/update/users/password/{id}": {
       "patch": {
-        "tags": [
-          "Private / User"
-        ],
+        "tags": ["Private / User"],
         "description": "",
         "parameters": [
           {
@@ -695,9 +652,7 @@
     },
     "/private/delete/users/{id}": {
       "delete": {
-        "tags": [
-          "Private / User"
-        ],
+        "tags": ["Private / User"],
         "description": "",
         "parameters": [
           {
@@ -729,9 +684,7 @@
     },
     "/private/client/{id}": {
       "get": {
-        "tags": [
-          "Private / Client"
-        ],
+        "tags": ["Private / Client"],
         "description": "",
         "parameters": [
           {
@@ -763,9 +716,7 @@
     },
     "/private/client/update/{id}": {
       "put": {
-        "tags": [
-          "Private / Client"
-        ],
+        "tags": ["Private / Client"],
         "description": "",
         "parameters": [
           {
@@ -812,9 +763,7 @@
     },
     "/private/client/allergy/update/{id}": {
       "put": {
-        "tags": [
-          "Private / Client"
-        ],
+        "tags": ["Private / Client"],
         "description": "",
         "parameters": [
           {
@@ -845,10 +794,7 @@
                   "example": "Alergia a pelvis"
                 }
               },
-              "required": [
-                "name_illness",
-                "description"
-              ]
+              "required": ["name_illness", "description"]
             }
           }
         ],
@@ -869,9 +815,7 @@
     },
     "/private/client/allergy/delete/{id}": {
       "delete": {
-        "tags": [
-          "Private / Client"
-        ],
+        "tags": ["Private / Client"],
         "description": "",
         "parameters": [
           {
