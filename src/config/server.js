@@ -34,7 +34,6 @@ app.use(cors());
 // funciono local
 // app.use(express.static("public"));
 app.use(express.static(__dirname));
-
 app.use(express.static("public"));
 
 //EndPoint
