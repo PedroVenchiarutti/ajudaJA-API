@@ -31,7 +31,8 @@ app.use(allowCors);
 app.use(cors());
 // app.use(express.static(__dirname + "/public"));
 
-app.use(express.static("public" + "/swagger-ui.css"));
+app.use(express.static("public"));
+app.use(express.static(__dirname));
 
 //EndPoint
 app.use("/api", routes);
@@ -42,11 +43,17 @@ const swaggerUi = require("swagger-ui-express");
 const swaggerDocument = require("./swagger_output");
 
 const options = {
-  customSiteTitle: "The Words That I Know API - Swagger",
+  customCssUrl: "/swagger-ui.css",
+  customSiteTitle: "API AjudaJA swagger",
 };
 
-app.use("/docs", swaggerUi.serve);
-app.get("/docs", swaggerUi.setup(swaggerDocument, options));
+app.use("/docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument, options));
+
+// app.use("/docs", swaggerUi.serve);
+// app.get("/docs", (req, res) => {
+//   // console.log("teste");
+//   res.send(swaggerUi.generateHTML(swaggerDocument, options));
+// });
 
 // app.use("/public/docs", express.static(path.join(SRC_FOLDER, "public")));
 
