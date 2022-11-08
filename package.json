@@ -5,8 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node ./src/loader.js",
-    "dev": "nodemon ./src/loader.js",
+    "start": "node loader.js",
+    "dev": "nodemon loader.js",
     "swagger-autogen": "node ./src/config/swagger.js"
   },
   "keywords": [],
