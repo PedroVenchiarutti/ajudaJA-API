@@ -10,11 +10,7 @@
     {
       "src": "/(.*)",
       "dest": "/",
-      "methods": ["GET", "POST", "PUT", "PATCH", "DELETE"]
-    }
-  ],
-  "headers": [
-    {
+      "methods": ["GET", "POST", "PUT", "PATCH", "DELETE"],
       "source": "/api/(.*)",
       "headers": [
         { "key": "Access-Control-Allow-Credentials", "value": "true" },
