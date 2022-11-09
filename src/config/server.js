@@ -17,6 +17,8 @@ const io = new Server(server, {
   },
 });
 
+console.log(allowCors);
+
 // Swagger
 // const swaggerUI = require("swagger-ui-express");
 // const swaggerFile = require("./swagger_output.json");
