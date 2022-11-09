@@ -17,9 +17,7 @@ const io = new Server(server, {
   },
 });
 
-// Swagger
-// const swaggerUI = require("swagger-ui-express");
-// const swaggerFile = require("./swagger_output.json");
+// Swagger desse jetio para funcionar na vercel
 const swaggerUi = require("swagger-ui-express");
 const swaggerDocument = require("./swagger_output.json");
 
@@ -31,10 +29,6 @@ app.use(
 );
 app.use(cors());
 app.use(allowCors);
-
-// funciono local
-// app.use(express.static("public"));
-// app.use(express.static(__dirname));
 
 const ROOT_FOLDER = path.join(__dirname, "..");
 app.use(express.static(path.join(ROOT_FOLDER, "public")));
@@ -49,12 +43,6 @@ const options = {
   customSiteTitle: "API AjudaJA swagger",
 };
 
-// app.use("/docs", swaggerUi.serve);
-// app.get("/docs", swaggerUi.setup(swaggerDocument, options));
-
 app.use("/docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument, options));
-
-// NAO ENVIAR O SWAGGER NA PRODUCAO
-// app.use("/docs", swaggerUI.serve, swaggerUI.setup(swaggerFile));
 
 module.exports = { server, io };

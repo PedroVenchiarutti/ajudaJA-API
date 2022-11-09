@@ -215,21 +215,29 @@ class Querys {
 
   static insertMulti(table, params) {
     return new Promise((resolve, reject) => {
-      let query = `insert into ${table} (info_id, description) values (returning *`;
+      let query = `insert into ${table} (info_id, description) values `;
 
-      const data = params.map(async (item) => {
-        return await db.exec(query, [item.info_id, item.description]);
+      let values = [];
+
+      params.forEach((param, index) => {
+        query += `($1, $${index + 2})`;
+        values.push(param.info_id, param.description);
+
+        if (index < params.length - 1) {
+          query += ", ";
+        }
+
+        if (index == params.length - 1) {
+          query += " RETURNING *";
+        }
       });
+      console.log(values);
 
-      Promise.all(data)
-        .then((result) => resolve(result))
+      db.exec(query, values)
+        .then((result) => {
+          resolve(result);
+        })
         .catch((err) => reject(err));
-
-      // db.exec(query, params)
-      //   .then((result) => {
-      //     resolve(result);
-      //   })
-      //   .catch((err) => reject(err));
     });
   }
 }
