@@ -17,8 +17,6 @@ const io = new Server(server, {
   },
 });
 
-console.log(allowCors);
-
 // Swagger
 // const swaggerUI = require("swagger-ui-express");
 // const swaggerFile = require("./swagger_output.json");
@@ -31,8 +29,8 @@ app.use(
     extended: true,
   })
 );
-app.use(allowCors);
 app.use(cors());
+app.use(allowCors);
 
 // funciono local
 // app.use(express.static("public"));

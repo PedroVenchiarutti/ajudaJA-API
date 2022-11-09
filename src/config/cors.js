@@ -36,6 +36,8 @@ module.exports = (req, res, next) => {
       body: "OK",
     });
   }
+
+  next();
 };
 
 // module.exports = (req, res, next) => {
