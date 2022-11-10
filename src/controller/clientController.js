@@ -108,22 +108,22 @@ exports.addAllergy = async (req, res, next) => {
 
      */
   const body = req.body;
+  console.log(body);
 
   try {
-    // querys
-    //   .insert("ill_allergy", body)
-    //   .then((result) => {
-    //     res.status(200).json({
-    //       message: "Alergia cadastrada com sucesso",
-    //       allergyClient: result,
-    //     });
-    //   })
-    //   .catch((err) => {
-    //     next(ApiError.internal(err.message));
-    //   });
-
+    /*   querys
+      .insert("ill_allergy", body)
+      .then((result) => {
+        res.status(200).json({
+          message: "Alergia cadastrada com sucesso",
+          allergyClient: result,
+        });
+      })
+      .catch((err) => {
+        next(ApiError.internal(err.message));
+      }); */
     querys
-      .insertMulti("ill_allergy", [body])
+      .insertMulti("ill_allergy", body)
       .then((result) => {
         res.status(200).json({
           message: "Alergia cadastrada com sucesso",
@@ -242,8 +242,10 @@ exports.getPublicDate = async (req, res, next) => {
           birthday: result[0]?.birthday,
           avatar: result[0]?.avatar,
           allergy: data || [],
+          idinfo: result[0]?.idinfo,
         },
       });
+      console.log(result);
     });
   } catch (e) {
     next(ApiError.internal(e.message));
