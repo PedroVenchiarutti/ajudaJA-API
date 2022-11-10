@@ -231,7 +231,6 @@ class Querys {
           query += " RETURNING *";
         }
       });
-      console.log(values);
 
       db.exec(query, values)
         .then((result) => {
