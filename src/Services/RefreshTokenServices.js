@@ -63,6 +63,6 @@ exports.execute = async (refresh_token) => {
 
     return tokenData;
   } catch (error) {
-    console.log(error);
+    return new ApiError(500, error.message);
   }
 };

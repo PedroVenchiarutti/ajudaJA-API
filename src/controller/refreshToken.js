@@ -18,6 +18,8 @@ exports.handle = async (request, response, next) => {
       refreshToken
     );
 
+    // console.log(refresh_token_response);
+
     // Verificando se existe uma instancia do ApiError e se existir ele retorna o erro
     if (refresh_token_response instanceof ApiError) {
       return response.status(refresh_token_response.status).json({
@@ -28,6 +30,8 @@ exports.handle = async (request, response, next) => {
     // retornando o novo token e refreshToken
     return response.status(200).json(refresh_token_response);
   } catch (error) {
-    next(ApiError.badRequest(error.message));
+    return response.status(500).json({
+      message: error.message,
+    });
   }
 };
